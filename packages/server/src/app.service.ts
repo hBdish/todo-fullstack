@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { urlJoin } from "url-join";
 
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'Hello Lerna';
+    return urlJoin( './src/tests');
   }
 }
