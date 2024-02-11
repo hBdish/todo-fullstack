@@ -18,7 +18,7 @@ export class UserService {
   ): Promise<OutputUserDto> {
     const user = plainToInstance(UserEntity, input);
     user.password = await hash(input.password, 10);
-    user.createdByUserId = input.createdByUserId;
+    user.companyId = input.companyId;
 
     await this.userRepository.saveUser(user);
 

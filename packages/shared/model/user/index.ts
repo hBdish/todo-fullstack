@@ -4,6 +4,7 @@ export interface User {
   email: string;
   password: string;
   photo: string;
+  companyId: string;
   createdAt: Date;
   updatedAt: Date | null;
   deleteAt: Date | null;
@@ -14,5 +15,5 @@ export interface CreateUser {
   email: string;
   password: string;
   photo: string;
-  createdByUserId: string | null;
+  companyId: string | null;
 }

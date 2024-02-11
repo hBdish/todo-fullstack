@@ -22,5 +22,5 @@ export class UserEntity extends AbstractEntity implements User {
   photo: string;
 
   @Column({ nullable: true })
-  public createdByUserId: string | null;
+  public companyId: string | null;
 }

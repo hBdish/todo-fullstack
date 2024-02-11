@@ -18,5 +18,5 @@ export class OutputUserDto extends AbstractDto implements UserEntity {
   photo: string;
 
   @Exclude()
-  createdByUserId: string | null;
+  companyId: string | null;
 }

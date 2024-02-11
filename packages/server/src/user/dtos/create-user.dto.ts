@@ -17,5 +17,5 @@ export class CreateUserDto implements CreateUser {
 
   @IsOptional()
   @IsString()
-  createdByUserId: string | null;
+  companyId: string | null;
 }

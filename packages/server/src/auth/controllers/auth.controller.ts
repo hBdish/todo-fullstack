@@ -16,7 +16,6 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   login(
     @ReqContext() ctx: RequestContext,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     @Body() credential: LoginInput,
   ): AuthTokenOutput {
     return this.authService.login(ctx);
@@ -34,7 +33,6 @@ export class AuthController {
   @UseGuards(JwtRefreshGuard)
   async refreshToken(
     @ReqContext() ctx: RequestContext,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     @Body() credential: RefreshTokenInput,
   ): Promise<AuthTokenOutput> {
     return await this.authService.refreshToken(ctx);

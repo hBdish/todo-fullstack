@@ -7,9 +7,19 @@ import { AppService } from './app.service';
 
 import { AuthModule } from './auth';
 import { UserModule } from './user';
+import { CompanyModule } from './company';
+import { ProjectModule } from './project';
+import { TableModule } from './table';
 
 @Module({
-  imports: [DatabaseModule, UserModule, AuthModule],
+  imports: [
+    DatabaseModule,
+    UserModule,
+    AuthModule,
+    CompanyModule,
+    ProjectModule,
+    TableModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

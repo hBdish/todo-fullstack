@@ -49,7 +49,7 @@ export class UserRepository
   async getAllUsers(parentId?: string): Promise<UserEntity[]> {
     const users = await this.find({
       where: {
-        createdByUserId: parentId ? parentId : null,
+        companyId: parentId ? parentId : null,
       },
     });
     // const users = await this.findAndCount({
