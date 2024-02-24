@@ -2,9 +2,9 @@ import { Exclude, Expose } from 'class-transformer';
 
 import { AbstractDto } from '../../shared/dtos';
 
-import { UserEntity } from '../entities';
+import { Company, User } from '@packages/shared';
 
-export class OutputUserDto extends AbstractDto implements UserEntity {
+export class OutputUserDto extends AbstractDto implements User {
   @Expose()
   name: string;
 
@@ -18,5 +18,5 @@ export class OutputUserDto extends AbstractDto implements UserEntity {
   photo: string;
 
   @Exclude()
-  companyId: string | null;
+  company: Company;
 }

@@ -27,12 +27,7 @@ export class UserController {
     @ReqContext() ctx: RequestContext,
     @Body() createUserDto: CreateUserDto,
   ): Promise<OutputUserDto> {
-    const registeredUser = await this.userService.createUser(
-      ctx,
-      createUserDto,
-    );
-
-    return registeredUser;
+    return await this.userService.createUser(ctx, createUserDto);
   }
 
   @Patch(':id')

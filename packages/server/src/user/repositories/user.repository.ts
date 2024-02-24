@@ -46,10 +46,10 @@ export class UserRepository
     return savedUser;
   }
 
-  async getAllUsers(parentId?: string): Promise<UserEntity[]> {
+  async getAllUsers(): Promise<UserEntity[]> {
     const users = await this.find({
-      where: {
-        companyId: parentId ? parentId : null,
+      relations: {
+        company: true,
       },
     });
     // const users = await this.findAndCount({

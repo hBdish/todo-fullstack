@@ -7,9 +7,14 @@ import { UserController } from './controllers';
 import { UserService } from './services';
 import { UserEntity } from './entities';
 import { UserRepository } from './repositories';
+import { CompanyModule } from '../company';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity]), SharedModule],
+  imports: [
+    TypeOrmModule.forFeature([UserEntity]),
+    CompanyModule,
+    SharedModule,
+  ],
   providers: [UserService, UserRepository],
   controllers: [UserController],
   exports: [UserService],

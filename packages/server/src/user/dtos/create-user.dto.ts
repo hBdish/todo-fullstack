@@ -1,4 +1,4 @@
-import { IsEmail, IsOptional, IsString, Length } from 'class-validator';
+import { IsEmail, IsString, Length } from 'class-validator';
 import { CreateUser } from '@packages/shared';
 
 export class CreateUserDto implements CreateUser {
@@ -15,7 +15,6 @@ export class CreateUserDto implements CreateUser {
   @IsString()
   photo: string;
 
-  @IsOptional()
   @IsString()
-  companyId: string | null;
+  companyId: string;
 }

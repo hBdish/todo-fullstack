@@ -1,9 +1,10 @@
-import { Column, Entity, Unique } from 'typeorm';
+import { Column, Entity, ManyToOne, Unique } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 import { User } from '@packages/shared';
 
 import { AbstractEntity } from '../../shared/entities';
+import { CompanyEntity } from '../../company/entities';
 
 @Entity('user')
 export class UserEntity extends AbstractEntity implements User {
@@ -21,6 +22,9 @@ export class UserEntity extends AbstractEntity implements User {
   @Column()
   photo: string;
 
-  @Column({ nullable: true })
-  public companyId: string | null;
+  @ManyToOne(() => CompanyEntity, (company) => company.user, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  company: CompanyEntity;
 }

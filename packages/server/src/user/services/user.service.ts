@@ -7,18 +7,28 @@ import { RequestContext } from '../../shared/request-context';
 import { CreateUserDto, OutputUserDto, UpdateUserDto } from '../dtos';
 import { UserEntity } from '../entities';
 import { UserRepository } from '../repositories';
+import { CompanyService } from '../../company/services';
 
 @Injectable()
 export class UserService {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    private userRepository: UserRepository,
+    private readonly companyService: CompanyService,
+  ) {}
 
   async createUser(
     ctx: RequestContext,
     input: CreateUserDto,
   ): Promise<OutputUserDto> {
+    console.log(input);
+
     const user = plainToInstance(UserEntity, input);
     user.password = await hash(input.password, 10);
-    user.companyId = input.companyId;
+
+    user.company = await this.companyService.getCompanyById(
+      ctx,
+      input.companyId,
+    );
 
     await this.userRepository.saveUser(user);
 

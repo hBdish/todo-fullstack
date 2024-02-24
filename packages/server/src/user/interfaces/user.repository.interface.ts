@@ -1,5 +1,4 @@
 import { UserEntity } from '../entities';
-import { OutputUserDto } from '../dtos';
 
 export interface UsersRepositoryInterface {
   getById: (id: string) => Promise<UserEntity> | null;

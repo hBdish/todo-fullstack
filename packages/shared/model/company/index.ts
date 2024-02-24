@@ -5,3 +5,7 @@ export interface Company {
   updatedAt: Date | null;
   deleteAt: Date | null;
 }
+
+export interface CreateCompany {
+  name: string;
+}
