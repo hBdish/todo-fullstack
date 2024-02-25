@@ -3,7 +3,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ReqContext, RequestContext } from '../../shared/request-context';
 import { UuidValidationPipe } from '../../shared/pipes';
 
-import { CreateCompanyDto } from '../dtos';
+import { CreateCompanyDto, OutputCompanyDto } from '../dtos';
 import { CompanyService } from '../services';
 
 @Controller('company')
@@ -22,7 +22,7 @@ export class CompanyController {
   async getCompanyById(
     @ReqContext() ctx: RequestContext,
     @Param('id', UuidValidationPipe) id: string,
-  ): Promise<any> {
+  ): Promise<OutputCompanyDto> {
     return await this.companyService.getCompanyByIdWithRelations(ctx, id);
   }
 }

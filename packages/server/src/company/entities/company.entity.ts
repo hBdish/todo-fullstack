@@ -4,6 +4,7 @@ import { Company } from '@packages/shared';
 
 import { AbstractEntity } from '../../shared/entities';
 import { UserEntity } from '../../user/entities';
+import { ProjectEntity } from '../../project/entities';
 
 @Entity('company')
 export class CompanyEntity extends AbstractEntity implements Company {
@@ -16,4 +17,8 @@ export class CompanyEntity extends AbstractEntity implements Company {
   })
   @JoinColumn()
   user: UserEntity[];
+
+  @OneToMany(() => ProjectEntity, (project) => project.company)
+  @JoinColumn()
+  project: ProjectEntity[];
 }

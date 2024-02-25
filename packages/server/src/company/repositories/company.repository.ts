@@ -47,6 +47,7 @@ export class CompanyRepository
       },
       relations: {
         user: true,
+        project: true,
       },
     });
 

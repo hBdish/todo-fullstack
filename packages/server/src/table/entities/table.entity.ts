@@ -11,15 +11,7 @@ export class TableEntity extends AbstractEntity implements Table {
   @Column({ default: '' })
   name: string;
 
-  @Column()
-  projectId: string;
-
-  task: TaskEntity;
-
-  @OneToOne(() => ProjectEntity, {
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
+  @OneToOne(() => ProjectEntity, (project) => project.table)
   @JoinColumn()
   project: ProjectEntity;
 }

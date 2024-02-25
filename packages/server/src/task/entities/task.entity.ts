@@ -30,11 +30,11 @@ export class TaskEntity extends AbstractEntity implements Task {
   @Column()
   authorId: string;
 
-  @ManyToOne(() => TableEntity, (table) => table.task, {
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
-  table: TableEntity;
+  // @ManyToOne(() => TableEntity, (table) => table.task, {
+  //   onUpdate: 'CASCADE',
+  //   onDelete: 'CASCADE',
+  // })
+  // table: TableEntity;
 
   @ManyToOne(() => ProjectEntity, (project) => project.task, {
     onUpdate: 'CASCADE',

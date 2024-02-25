@@ -18,7 +18,13 @@ export class UserRepository
   }
 
   async getById(id: string): Promise<UserEntity> {
-    const user = await this.findOneBy({ id });
+    const user = await this.findOne({
+      where: { id },
+      relations: {
+        company: true,
+      },
+    });
+
     if (!user) {
       throw new NotFoundException(`Пользователь с id: ${id} не найден`);
     }

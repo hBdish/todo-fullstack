@@ -3,8 +3,6 @@ export interface Project {
   name: string;
   type: string;
   photo: string;
-  tableId: string;
-  companyId: string;
   createdAt: Date;
   updatedAt: Date | null;
   deleteAt: Date | null;
