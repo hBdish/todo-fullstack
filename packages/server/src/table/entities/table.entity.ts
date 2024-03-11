@@ -1,10 +1,11 @@
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 
 import { Table } from '@packages/shared';
 
 import { AbstractEntity } from '../../shared/entities';
-import { TaskEntity } from '../../task/entities';
+
 import { ProjectEntity } from '../../project/entities';
+import { TaskEntity } from '../../task/entities';
 
 @Entity('table')
 export class TableEntity extends AbstractEntity implements Table {
@@ -14,4 +15,7 @@ export class TableEntity extends AbstractEntity implements Table {
   @OneToOne(() => ProjectEntity, (project) => project.table)
   @JoinColumn()
   project: ProjectEntity;
+
+  @OneToMany(() => TaskEntity, (task) => task.table)
+  tasks: TaskEntity[];
 }

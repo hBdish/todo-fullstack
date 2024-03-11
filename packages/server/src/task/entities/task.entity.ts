@@ -30,11 +30,8 @@ export class TaskEntity extends AbstractEntity implements Task {
   @Column()
   authorId: string;
 
-  // @ManyToOne(() => TableEntity, (table) => table.task, {
-  //   onUpdate: 'CASCADE',
-  //   onDelete: 'CASCADE',
-  // })
-  // table: TableEntity;
+  @ManyToOne(() => TableEntity, (table) => table.tasks)
+  table: TableEntity;
 
   @ManyToOne(() => ProjectEntity, (project) => project.task, {
     onUpdate: 'CASCADE',
@@ -42,9 +39,6 @@ export class TaskEntity extends AbstractEntity implements Task {
   })
   project: ProjectEntity;
 
-  // @OneToMany(() => UserEntity, (user) => user.task, {
-  //   onUpdate: 'CASCADE',
-  //   onDelete: 'CASCADE',
-  // })
-  // user: UserEntity;
+  @ManyToOne(() => UserEntity)
+  user: UserEntity;
 }

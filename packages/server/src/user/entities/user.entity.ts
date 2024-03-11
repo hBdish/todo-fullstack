@@ -1,10 +1,11 @@
-import { Column, Entity, ManyToOne, Unique } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, Unique } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 import { User } from '@packages/shared';
 
 import { AbstractEntity } from '../../shared/entities';
 import { CompanyEntity } from '../../company/entities';
+import { TaskEntity } from '../../task/entities';
 
 @Entity('user')
 export class UserEntity extends AbstractEntity implements User {
@@ -27,4 +28,7 @@ export class UserEntity extends AbstractEntity implements User {
     onDelete: 'CASCADE',
   })
   company: CompanyEntity;
+
+  @OneToMany(() => TaskEntity, (task) => task.user)
+  task: TaskEntity;
 }
