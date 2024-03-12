@@ -1,0 +1,12 @@
+:root {
+    --color-text: #0f0f0f;
+    --color-hover: #f6f6f6;
+    --color-hover-dark: #eaeaea;
+    --color-accent: #683be4;
+    --color-bg: #f5f5f5;
+}
+
+body {
+    margin: 0;
+    background: var(--color-bg);
+}

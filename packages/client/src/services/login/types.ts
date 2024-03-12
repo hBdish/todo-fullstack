@@ -3,4 +3,11 @@ interface SignInForm {
   password: string;
 }
 
-export type { SignInForm };
+interface AuthResponse {
+  accessToken: string;
+  refreshToken: string;
+  email: string;
+  id: string;
+}
+
+export type { SignInForm, AuthResponse };

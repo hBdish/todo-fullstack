@@ -17,8 +17,11 @@
     "@mui/material": "^5.15.12",
     "@mui/x-data-grid": "^6.19.6",
     "@mui/x-date-pickers": "^6.19.6",
+    "@packages/shared": "*",
+    "axios": "^1.6.7",
     "dayjs": "^1.11.10",
     "mobx": "^6.12.0",
+    "mobx-react-lite": "^4.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3"
@@ -36,6 +39,8 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "prettier": "3.2.5",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "vite-plugin-svgr": "^4.2.0",
+    "vite-tsconfig-paths": "^4.3.1"
   }
 }
