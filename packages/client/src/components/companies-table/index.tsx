@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Collapse,
   IconButton,
   Paper,
@@ -15,100 +16,104 @@ import ArrowDropUpOutlinedIcon from '@mui/icons-material/ArrowDropUpOutlined';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import { useState } from 'react';
 
-function createData(name: string, tasksSize: number, peopleSize: number) {
-  return {
-    name,
-    tasksSize,
-    peopleSize,
+import { Company, Project, useStores } from '@services';
+import { format } from 'date-fns';
+import { observer } from 'mobx-react-lite';
 
-    projects: [
-      {
-        date: '2024-03-05',
-        projectName: 'Project 1',
-      },
-      {
-        date: '2020-03-07',
-        projectName: 'Project 2',
-      },
-    ],
-  };
-}
+const Row = observer((props: { project: Project }) => {
+  const { project } = props;
 
-const Row = (props: { row: ReturnType<typeof createData> }) => {
-  const { row } = props;
+  const { projectStore } = useStores();
   const [open, setOpen] = useState(false);
+  const onRowOpen = () => {
+    setOpen(!open);
+    void projectStore.getProjectData(project.id);
+  };
 
   return (
     <>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
+          <IconButton aria-label="expand row" size="small" onClick={onRowOpen}>
             {open ? <ArrowDropUpOutlinedIcon /> : <ArrowDropDownOutlinedIcon />}
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.name}
+          {project.name}
         </TableCell>
-        <TableCell align="right">{row.peopleSize}</TableCell>
-        <TableCell align="right">{row.tasksSize}</TableCell>
+        <TableCell align="right">{project.type}</TableCell>
+        <TableCell align="right">
+          {format(project.createdAt, 'yyyy-MM-dd HH:mm')}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Projects
-              </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Название</TableCell>
-                    <TableCell align={'right'}>
-                      Дата последнего изменения
-                    </TableCell>
+                    <TableCell>Доска</TableCell>
+                    {/*<TableCell align={'right'}>*/}
+                    {/*  Дата последнего изменения*/}
+                    {/*</TableCell>*/}
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.projects.map((projectsRow) => (
-                    <TableRow key={projectsRow.date}>
-                      <TableCell>{projectsRow.projectName}</TableCell>
-
-                      <TableCell align={'right'} component="th" scope="row">
-                        {projectsRow.date}
+                  <TableRow>
+                    {projectStore.project?.table && (
+                      <TableCell align={'left'}>
+                        {projectStore.project?.table.name}
                       </TableCell>
-                    </TableRow>
-                  ))}
+                    )}
+                  </TableRow>
+
+                  {/*{row.map((projectsRow) => (*/}
+                  {/*  <TableRow key={projectsRow.date}>*/}
+                  {/*    <TableCell>{projectsRow.projectName}</TableCell>*/}
+
+                  {/*    <TableCell align={'right'} component="th" scope="row">*/}
+                  {/*      {projectsRow.date}*/}
+                  {/*    </TableCell>*/}
+                  {/*  </TableRow>*/}
+                  {/*))}*/}
                 </TableBody>
               </Table>
+              <Button
+                variant={'outlined'}
+                onClick={() => {
+                  console.log(project);
+                }}
+              >
+                Удалить
+              </Button>
             </Box>
           </Collapse>
         </TableCell>
       </TableRow>
     </>
   );
-};
+});
 
-const rows = [createData('Company 1', 19, 6), createData('Company 2', 13, 9)];
+interface CollapsibleTableProps {
+  company?: Company;
+}
 
-function CollapsibleTable() {
+function CollapsibleTable({ company }: CollapsibleTableProps) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Название&nbsp;компании</TableCell>
-            <TableCell align="right">Количество&nbsp;участников</TableCell>
-            <TableCell align="right">Всего&nbsp;задач</TableCell>
+            <TableCell>Название&nbsp;проекта</TableCell>
+            <TableCell align="right">Тип</TableCell>
+            <TableCell align="right">Дата&nbsp;создания</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
+          {company?.project.map((project) => (
+            <Row key={project.id} project={project} />
           ))}
         </TableBody>
       </Table>

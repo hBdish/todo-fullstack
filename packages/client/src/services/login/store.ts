@@ -1,7 +1,8 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { SignInForm } from './types.ts';
 import { AuthService } from './auth-service.ts';
 import { setAccessKey, setRefreshKey } from '@data';
+import { rootStore } from '../root-store.ts';
 
 class LoginStore {
   auth = false;
@@ -27,16 +28,32 @@ class LoginStore {
   }
 
   // async
-  async login() {
+  async refresh() {
+    const user = await AuthService.refresh();
+
+    if (user?.id) {
+      runInAction(() => {
+        this.setAuth(true);
+        setAccessKey(user.accessToken);
+        setRefreshKey(user.refreshToken);
+      });
+
+      await rootStore.userStore.getUser(user.id);
+    }
+  }
+
+  async loginUser() {
     const user = await AuthService.login(this.authFormData);
 
     if (user?.id) {
-      this.setAuth(true);
-      setAccessKey(user.accessToken);
-      setRefreshKey(user.refreshToken);
-    }
+      runInAction(() => {
+        this.setAuth(true);
+        setAccessKey(user.accessToken);
+        setRefreshKey(user.refreshToken);
+      });
 
-    return this.auth;
+      await rootStore.userStore.getUser(user.id);
+    }
   }
 }
 
