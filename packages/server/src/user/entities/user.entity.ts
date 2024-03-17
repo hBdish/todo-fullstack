@@ -1,4 +1,11 @@
-import { Column, Entity, ManyToOne, OneToMany, Unique } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  Unique,
+} from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 import { User } from '@packages/shared';
@@ -27,6 +34,7 @@ export class UserEntity extends AbstractEntity implements User {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
+  @JoinColumn()
   company: CompanyEntity;
 
   @OneToMany(() => TaskEntity, (task) => task.user)
