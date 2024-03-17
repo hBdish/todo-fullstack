@@ -8,6 +8,9 @@ import { OutputUserDto } from '../../user/dtos';
 
 export class OutputCompanyDto extends AbstractDto implements Company {
   @IsString()
+  id: string;
+
+  @IsString()
   name: string;
 
   @Expose()

@@ -19,11 +19,36 @@ export class CompanyService {
     return await this.companyRepository.saveCompany(company);
   }
 
+  async deleteCompany(
+    ctx: RequestContext,
+    companyId: string,
+  ): Promise<CompanyEntity> {
+    return await this.companyRepository.deleteCompany(companyId);
+  }
+
+  async patchCompany(
+    ctx: RequestContext,
+    id: string,
+    companyDto: CreateCompanyDto,
+  ): Promise<OutputCompanyDto> {
+    const localCompany = await this.getCompanyById(ctx, id);
+    const company = plainToInstance(CompanyEntity, {
+      ...localCompany,
+      ...companyDto,
+    });
+
+    await this.companyRepository.saveCompany(company);
+
+    return plainToInstance(OutputCompanyDto, company);
+  }
+
   async getCompanyById(
     ctx: RequestContext,
     id: string,
   ): Promise<CompanyEntity> {
-    return await this.companyRepository.getCompanyBuId(id);
+    const company = await this.companyRepository.getCompanyBuId(id);
+
+    return company;
   }
 
   async getCompanyByIdWithRelations(

@@ -39,12 +39,14 @@ export class AuthService {
     input: CreateUserDto,
   ): Promise<OutputUserDto> {
     const registeredUser = await this.userService.createUser(ctx, input);
+
     return plainToInstance(OutputUserDto, registeredUser, {
       excludeExtraneousValues: true,
     });
   }
 
   async refreshToken(ctx: RequestContext): Promise<AuthTokenOutput> {
+    console.log(ctx.user.id);
     const user = await this.userService.getUserById(ctx, ctx.user.id);
     if (!user) {
       throw new UnauthorizedException('Invalid user id');
@@ -65,11 +67,12 @@ export class AuthService {
 
     const authToken = {
       refreshToken: this.jwtService.sign(subject, {
+        secret: 'test',
         expiresIn: 60000,
       }),
       accessToken: this.jwtService.sign(
         { ...payload, ...subject },
-        { expiresIn: 60000 },
+        { expiresIn: 60000, secret: 'test' },
       ),
       email: user.email,
       id: user.id,

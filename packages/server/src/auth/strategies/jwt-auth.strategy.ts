@@ -13,7 +13,7 @@ export class JwtAuthStrategy extends PassportStrategy(
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: 'secret',
+      secretOrKey: 'test',
     });
   }
   async validate(payload: any): Promise<UserAccessTokenClaims> {

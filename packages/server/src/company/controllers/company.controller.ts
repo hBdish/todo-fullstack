@@ -1,15 +1,27 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 
 import { ReqContext, RequestContext } from '../../shared/request-context';
 import { UuidValidationPipe } from '../../shared/pipes';
 
 import { CreateCompanyDto, OutputCompanyDto } from '../dtos';
 import { CompanyService } from '../services';
+import { JwtAuthGuard } from '../../auth/guards';
+import { CompanyEntity } from '../entities';
 
 @Controller('company')
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async createCompany(
     @ReqContext() ctx: RequestContext,
@@ -18,11 +30,31 @@ export class CompanyController {
     return await this.companyService.createCompany(ctx, createCompanyDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async getCompanyById(
     @ReqContext() ctx: RequestContext,
     @Param('id', UuidValidationPipe) id: string,
   ): Promise<OutputCompanyDto> {
     return await this.companyService.getCompanyByIdWithRelations(ctx, id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id')
+  async patchCompanyById(
+    @ReqContext() ctx: RequestContext,
+    @Param('id', UuidValidationPipe) id: string,
+    @Body() createCompanyDto: CreateCompanyDto,
+  ): Promise<OutputCompanyDto> {
+    return await this.companyService.patchCompany(ctx, id, createCompanyDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  async deleteCompanyById(
+    @ReqContext() ctx: RequestContext,
+    @Param('id', UuidValidationPipe) id: string,
+  ): Promise<CompanyEntity> {
+    return await this.companyService.deleteCompany(ctx, id);
   }
 }

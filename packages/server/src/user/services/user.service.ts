@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  HttpException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { compare, hash } from 'bcrypt';
 
@@ -20,8 +24,6 @@ export class UserService {
     ctx: RequestContext,
     input: CreateUserDto,
   ): Promise<OutputUserDto> {
-    console.log(input);
-
     const user = plainToInstance(UserEntity, input);
     user.password = await hash(input.password, 10);
 
@@ -30,7 +32,11 @@ export class UserService {
       input.companyId,
     );
 
-    await this.userRepository.saveUser(user);
+    const savedUser = await this.userRepository.saveUser(user);
+
+    if (!savedUser) {
+      throw new HttpException('Не удалось создать пользователя', 403);
+    }
 
     return plainToInstance(OutputUserDto, user, {
       excludeExtraneousValues: true,
