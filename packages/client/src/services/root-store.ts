@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx';
-import { LoginStore } from './login/store.ts';
+
+import { LoginStore } from './login';
 
 class RootStore {
   loginStore: LoginStore;

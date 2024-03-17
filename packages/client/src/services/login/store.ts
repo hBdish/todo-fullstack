@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { SignInForm } from './types.ts';
 import { AuthService } from './auth-service.ts';
-import { setAccessKey } from '@data';
+import { setAccessKey, setRefreshKey } from '@data';
 
 class LoginStore {
   auth = false;
@@ -33,7 +33,10 @@ class LoginStore {
     if (user?.id) {
       this.setAuth(true);
       setAccessKey(user.accessToken);
+      setRefreshKey(user.refreshToken);
     }
+
+    return this.auth;
   }
 }
 

@@ -26,7 +26,8 @@
       "@components": ["src/components"],
       "@assets": ["src/assets"],
       "@hooks": ["src/hooks"],
-      "@data": ["src/data"]
+      "@data": ["src/data"],
+      "@shared": ["src/shared"],
     }
   },
   "include": ["src"],

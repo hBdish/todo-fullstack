@@ -1,1 +1,1 @@
-export {} from './reg-page.tsx';
+export { RegPage } from './reg-page.tsx';

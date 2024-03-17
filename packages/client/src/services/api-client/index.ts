@@ -1,6 +1,8 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
+
 import { getAccessKey } from '@data';
-import { useStores } from '@services';
+
+import { rootStore } from '../root-store.ts';
 
 class ApiClient {
   client: AxiosInstance;
@@ -19,7 +21,7 @@ class ApiClient {
       (response) => response,
       (error) => {
         const err = error as AxiosError;
-        const { loginStore } = useStores();
+        const { loginStore } = rootStore;
 
         if (err.response?.status === 401) {
           loginStore.setAuth(false);

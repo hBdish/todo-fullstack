@@ -1,0 +1,40 @@
+.style_tasks {
+  &.table {
+    display: grid;
+    justify-content: space-between;
+    max-width: 1000px;
+  }
+
+  .tableCell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 3pc;
+  }
+}
+
+.style_projects {
+  &.table {
+    display: grid;
+  }
+
+  .tableCell {
+    display: flex;
+    align-items: center;
+    min-height: 3pc;
+  }
+}
+
+.tableHeaderCell {
+  display: flex;
+  align-items: center;
+  min-height: 2pc;
+}
+
+.tableHeader {
+  //margin-bottom: 24px;
+}
+
+.tableRow {
+  display: contents;
+}
