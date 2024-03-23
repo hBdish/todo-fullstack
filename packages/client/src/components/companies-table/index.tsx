@@ -10,7 +10,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from '@mui/material';
 import ArrowDropUpOutlinedIcon from '@mui/icons-material/ArrowDropUpOutlined';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
@@ -81,6 +80,15 @@ const Row = observer((props: { project: Project }) => {
               </Table>
               <Button
                 variant={'outlined'}
+                onClick={() => {
+                  console.log(project);
+                }}
+              >
+                Редактировать
+              </Button>
+              <Button
+                variant={'outlined'}
+                color={'error'}
                 onClick={() => {
                   console.log(project);
                 }}

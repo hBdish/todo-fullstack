@@ -1,9 +1,9 @@
 import { Container, CssBaseline } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 
-import { CollapsibleTable } from '@components';
 import { useStores } from '@services';
 import { useEffect } from 'react';
+import { ProjectsTable } from './components';
 
 const CompanyPage = observer(() => {
   const {
@@ -22,7 +22,8 @@ const CompanyPage = observer(() => {
   return (
     <Container component="main" maxWidth="xl">
       <CssBaseline />
-      <CollapsibleTable company={companyStore.company} />
+      {/*<CollapsibleTable company={companyStore.company} />*/}
+      <ProjectsTable projects={companyStore.company?.project || []} />
     </Container>
   );
 });

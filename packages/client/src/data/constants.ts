@@ -6,4 +6,8 @@ const ROUTES = {
   Table: '/table/:id',
 };
 
-export { ROUTES };
+const routeToTableId = (id: string) => {
+  return `/table/${id}`;
+};
+
+export { ROUTES, routeToTableId };

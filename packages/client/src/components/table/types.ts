@@ -1,8 +1,10 @@
 import { ReactNode } from 'react';
-import { TableHeader } from './components/table-header.tsx';
-import { TableCell } from './components/table-cell.tsx';
-import { TableRow } from './components/table-row.tsx';
-import { TableHeaderCell } from './components/table-header-cell.tsx';
+import {
+  TableHeader,
+  TableCell,
+  TableRow,
+  TableHeaderCell,
+} from './components';
 
 interface TableCommonProps {
   className?: string;
