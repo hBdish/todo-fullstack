@@ -25,11 +25,11 @@ export class ProjectEntity extends AbstractEntity implements Project {
   @Column({ default: '' })
   type: string;
 
-  @OneToMany(() => ProjectEntity, (project) => project.task, {
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
+  @OneToMany(() => TaskEntity, (tasks) => tasks.project, {
+    cascade: true,
   })
-  task: TaskEntity;
+  @JoinColumn()
+  task: TaskEntity[];
 
   @ManyToOne(() => CompanyEntity, (company) => company.project, {
     onUpdate: 'CASCADE',
@@ -37,6 +37,9 @@ export class ProjectEntity extends AbstractEntity implements Project {
   })
   company: CompanyEntity;
 
-  @OneToOne(() => TableEntity, (table) => table.project)
+  @OneToOne(() => TableEntity, (table) => table.project, {
+    cascade: true,
+  })
+  @JoinColumn()
   table: TableEntity;
 }

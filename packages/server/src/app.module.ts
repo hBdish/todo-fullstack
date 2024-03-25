@@ -10,6 +10,7 @@ import { UserModule } from './user';
 import { CompanyModule } from './company';
 import { ProjectModule } from './project';
 import { TableModule } from './table';
+import { TaskModule } from './task';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TableModule } from './table';
     CompanyModule,
     ProjectModule,
     TableModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],

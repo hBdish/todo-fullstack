@@ -1,30 +1,33 @@
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Box } from '@mui/material';
+import TableChartIcon from '@mui/icons-material/TableChart';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import { Dispatch, SetStateAction, useState } from 'react';
 
-const TableNavbar = () => {
+interface TableNavbar {
+  value: number;
+  setValue: Dispatch<SetStateAction<number>>;
+}
+
+const TableNavbar = (props: TableNavbar) => {
+  const { value, setValue } = props;
+
   return (
-    <Box sx={{ width: 160, height: '100vh' }}>
-      <List>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary={'Доска'} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary={'Задачи'} />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </Box>
+    <BottomNavigation
+      sx={{
+        width: 80,
+        height: '100vh',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}
+      showLabels
+      value={value}
+      onChange={(event, newValue) => {
+        setValue(newValue);
+      }}
+    >
+      <BottomNavigationAction label="Доска" icon={<TableChartIcon />} />
+      <BottomNavigationAction label="Задачи" icon={<AssignmentIcon />} />
+    </BottomNavigation>
   );
 };
 

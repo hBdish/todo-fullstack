@@ -12,9 +12,9 @@ class ProjectStore {
 
   // async
   async getProjectData(id: string) {
-    if (!id) return;
-
     this.isLoading = true;
+
+    if (!id) return;
 
     const project = await ProjectService.getProject(id);
 

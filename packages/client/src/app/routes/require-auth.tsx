@@ -3,8 +3,9 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 import { useStores } from '@services';
 import { ROUTES } from '@data';
+import { observer } from 'mobx-react-lite';
 
-export function RequireAuth({ children }: { children: ReactNode }) {
+const RequireAuth = observer(({ children }: { children: ReactNode }) => {
   const {
     loginStore: { auth },
   } = useStores();
@@ -15,4 +16,6 @@ export function RequireAuth({ children }: { children: ReactNode }) {
   }
 
   return children;
-}
+});
+
+export { RequireAuth };

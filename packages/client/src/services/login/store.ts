@@ -6,6 +6,7 @@ import { rootStore } from '../root-store.ts';
 
 class LoginStore {
   auth = false;
+  isLoadingAuth = false;
   authFormData: SignInForm = {
     email: '',
     password: '',
@@ -29,16 +30,22 @@ class LoginStore {
 
   // async
   async refresh() {
-    const user = await AuthService.refresh();
+    this.isLoadingAuth = true;
+    try {
+      const user = await AuthService.refresh();
 
-    if (user?.id) {
-      runInAction(() => {
-        this.setAuth(true);
-        setAccessKey(user.accessToken);
-        setRefreshKey(user.refreshToken);
-      });
+      if (user?.id) {
+        runInAction(() => {
+          this.setAuth(true);
+          setAccessKey(user.accessToken);
+          setRefreshKey(user.refreshToken);
+          this.isLoadingAuth = false;
+        });
 
-      await rootStore.userStore.getUser(user.id);
+        await rootStore.userStore.getUser(user.id);
+      }
+    } catch (e) {
+      this.setAuth(false);
     }
   }
 

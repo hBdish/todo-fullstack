@@ -1,7 +1,8 @@
 export interface Table {
   id: string;
+  name: string;
+  workflow: string[];
   createdAt: string;
   updatedAt: string;
-  deleteAt: any;
-  name: string;
+  deleteAt: string;
 }

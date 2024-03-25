@@ -3,8 +3,11 @@ import { Route, Routes } from 'react-router-dom';
 
 import { AppRoutesProps, routeConfig } from './route-config.tsx';
 import { RequireAuth } from './require-auth.tsx';
+import { useAppInitialize } from '@hooks';
 
 const AppRouter = memo(() => {
+  const { pending } = useAppInitialize();
+
   const renderWrapper = useCallback((route: AppRoutesProps) => {
     const element = (
       <Suspense fallback={<>Loading...</>}>{route.element}</Suspense>
@@ -20,6 +23,8 @@ const AppRouter = memo(() => {
       />
     );
   }, []);
+
+  if (pending) return <></>;
 
   return <Routes>{Object.values(routeConfig).map(renderWrapper)}</Routes>;
 });

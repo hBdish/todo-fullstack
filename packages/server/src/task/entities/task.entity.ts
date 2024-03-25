@@ -1,6 +1,6 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { AbstractEntity } from '../../shared/entities';
-import { Task, TaskStatus } from '@packages/shared';
+import { Task } from '@packages/shared';
 import { TableEntity } from '../../table/entities';
 import { ProjectEntity } from '../../project/entities';
 import { UserEntity } from '../../user/entities';
@@ -14,21 +14,10 @@ export class TaskEntity extends AbstractEntity implements Task {
   name: string;
 
   @Column({
-    default: 'executed',
+    default: null,
+    nullable: true,
   })
-  status: TaskStatus;
-
-  @Column()
-  tableId: string;
-
-  @Column()
-  executorId: string;
-
-  @Column()
-  projectId: string;
-
-  @Column()
-  authorId: string;
+  status: string;
 
   @ManyToOne(() => TableEntity, (table) => table.tasks)
   table: TableEntity;
@@ -40,5 +29,6 @@ export class TaskEntity extends AbstractEntity implements Task {
   project: ProjectEntity;
 
   @ManyToOne(() => UserEntity)
+  @JoinColumn()
   user: UserEntity;
 }

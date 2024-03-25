@@ -9,6 +9,16 @@ export class ProjectRepository extends Repository<ProjectEntity> {
     super(ProjectEntity, dataSource.createEntityManager());
   }
 
+  async saveProject(project: ProjectEntity) {
+    const savedProject = await this.save(project);
+
+    if (!project) {
+      throw new NotFoundException(`Не удалось сохранить проект`);
+    }
+
+    return savedProject;
+  }
+
   async getById(id: string): Promise<ProjectEntity> {
     const project = await this.findOneBy({ id });
 
@@ -24,6 +34,7 @@ export class ProjectRepository extends Repository<ProjectEntity> {
       where: { id },
       relations: {
         table: true,
+        task: true,
       },
     });
 

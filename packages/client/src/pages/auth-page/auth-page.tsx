@@ -23,9 +23,9 @@ const AuthPage = observer(() => {
   const { loginStore } = useStores();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    loginStore.auth && navigate(ROUTES.Companies);
-  }, [loginStore.auth, navigate]);
+  // useEffect(() => {
+  //   // loginStore.auth && navigate(ROUTES.Companies);
+  // }, [loginStore.auth, navigate]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,7 +34,7 @@ const AuthPage = observer(() => {
     loginStore.setAuthDormData('email', data.get('email') as string);
     loginStore.setAuthDormData('password', data.get('password') as string);
 
-    void loginStore.loginUser();
+    loginStore.loginUser().then(() => navigate(ROUTES.Companies));
   };
 
   return (

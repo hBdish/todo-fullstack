@@ -8,7 +8,7 @@ interface ProjectsTable {
 
 const ProjectsTable = (props: ProjectsTable) => {
   const { projects } = props;
-  console.log(projects);
+
   return (
     <Table columnWidths={['50%', '25%', '25%']}>
       <ProjectTableHeader />

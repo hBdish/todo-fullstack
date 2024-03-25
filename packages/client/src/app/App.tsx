@@ -10,11 +10,11 @@ import { theme } from './styles/theme/theme.ts';
 import './styles/index.css';
 
 function App() {
-  const { loginStore } = useStores();
+  // const { loginStore } = useStores();
 
-  useEffect(() => {
-    void loginStore.refresh();
-  }, []);
+  // useEffect(() => {
+  //   void loginStore.refresh();
+  // }, []);
 
   return (
     <ThemeProvider theme={theme}>
