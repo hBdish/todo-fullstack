@@ -44,4 +44,14 @@ export class ProjectRepository extends Repository<ProjectEntity> {
 
     return project;
   }
+
+  async deleteProject(project: ProjectEntity) {
+    const deletedProject = await this.remove(project);
+
+    if (!deletedProject) {
+      throw new NotFoundException(`Не удалось удалить проект`);
+    }
+
+    return deletedProject;
+  }
 }

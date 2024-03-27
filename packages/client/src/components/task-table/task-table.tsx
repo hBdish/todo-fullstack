@@ -8,33 +8,12 @@ import { TaskTableHeader } from './components';
 
 import styles from './task-table.module.scss';
 import { observer } from 'mobx-react-lite';
+import { TaskTableCell } from './components/task-table-cell';
 
 interface TaskTable {
   table: TableInterface;
   tasks: Task[];
 }
-
-const TableCell = observer(
-  ({ status, tasks }: { status: string; tasks: Task[] }) => {
-    const [dropValue] = useDropCustom(status);
-
-    const renderTaskCard = (task: Task) => (
-      <TaskCard task={task} key={task.id} />
-    );
-
-    return (
-      <Table.Cell
-        className={styles.taskTableCell}
-        key={status}
-        myRef={dropValue}
-      >
-        {tasks.map((task) => {
-          return renderTaskCard(task);
-        })}
-      </Table.Cell>
-    );
-  },
-);
 
 const TaskTable = (props: TaskTable) => {
   const { table, tasks } = props;
@@ -46,7 +25,7 @@ const TaskTable = (props: TaskTable) => {
       <Table.Row>
         {table.workflow.map((status) => {
           return (
-            <TableCell
+            <TaskTableCell
               key={status}
               status={status}
               tasks={tasks.filter((task) => task.status === status)}

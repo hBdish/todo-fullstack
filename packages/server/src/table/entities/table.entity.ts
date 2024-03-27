@@ -15,6 +15,9 @@ export class TableEntity extends AbstractEntity implements Table {
   @Column({ type: 'jsonb', default: [] })
   workflow: string[];
 
+  @Column({ nullable: true })
+  dateSprintStart?: string;
+
   @OneToOne(() => ProjectEntity, (project) => project.table, {
     onDelete: 'CASCADE',
   })

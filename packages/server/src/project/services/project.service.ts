@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { plainToInstance } from 'class-transformer';
+
+import { RequestContext } from '../../shared/request-context';
+import { CompanyService } from '../../company/services';
+import { TableService } from '../../table/services';
+import { TableEntity } from '../../table/entities';
 
 import { ProjectRepository } from '../repositories';
-import { RequestContext } from '../../shared/request-context';
-import { CreateProjectDto } from '../dtos';
-import { CompanyService } from '../../company/services';
-import { plainToInstance } from 'class-transformer';
 import { ProjectEntity } from '../entities';
-import { TableService } from '../../table/services/table.service';
-import { TableEntity } from '../../table/entities';
+import { CreateProjectDto } from '../dtos';
 
 @Injectable()
 export class ProjectService {
@@ -19,6 +20,16 @@ export class ProjectService {
 
   async getProjectById(ctx: RequestContext, projectId: string) {
     return await this.projectRepository.getByIdWithRelations(projectId);
+  }
+
+  async deleteProject(projectId: string) {
+    const deletedProject = await this.getProjectById(null, projectId);
+
+    return await this.projectRepository.deleteProject(deletedProject);
+  }
+
+  async updateProject(project: ProjectEntity) {
+    return await this.projectRepository.saveProject(project);
   }
 
   async createProject(

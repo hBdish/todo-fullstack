@@ -10,7 +10,7 @@ const ProjectsTable = (props: ProjectsTable) => {
   const { projects } = props;
 
   return (
-    <Table columnWidths={['50%', '25%', '25%']}>
+    <Table columnWidths={['60px', '50%', '25%', 'auto', '40px', '40px']}>
       <ProjectTableHeader />
       <ProjectTableBody projects={projects} />
     </Table>

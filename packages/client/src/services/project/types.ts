@@ -1,5 +1,5 @@
 import { Table } from '../table';
-import { Task } from '../task/types.ts';
+import { Task } from '../task';
 
 export interface Project {
   id: string;
@@ -11,4 +11,11 @@ export interface Project {
   type: string;
   table: Table;
   task: Task[];
+}
+
+export interface CreateProject {
+  name: string;
+  photo: string;
+  type: string;
+  companyId: string;
 }

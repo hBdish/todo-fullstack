@@ -1,4 +1,12 @@
-import { Body, Controller, Patch, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Patch,
+  Post,
+  Put,
+} from '@nestjs/common';
 
 import { TaskService } from '../services';
 import { ReqContext, RequestContext } from '../../shared/request-context';
@@ -33,5 +41,13 @@ export class TaskController {
     @Body() task: TaskEntity,
   ) {
     return await this.taskService.updateTask(task);
+  }
+
+  @Delete(':id')
+  async deleteTask(
+    @ReqContext() ctx: RequestContext,
+    @Param('id') taskId: string,
+  ) {
+    return await this.taskService.deleteTask(taskId);
   }
 }

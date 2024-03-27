@@ -31,4 +31,14 @@ export class TaskRepository extends Repository<TaskEntity> {
 
     return savedTask;
   }
+
+  async removeTask(task: TaskEntity) {
+    const removedTask = await this.remove(task);
+
+    if (!removedTask) {
+      throw new NotFoundException(`Не удалось удалить таску`);
+    }
+
+    return removedTask;
+  }
 }

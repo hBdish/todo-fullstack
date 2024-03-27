@@ -19,6 +19,12 @@ export class TaskEntity extends AbstractEntity implements Task {
   })
   status: string;
 
+  @Column({ nullable: true })
+  dateSprintStart?: string;
+
+  @Column({ nullable: true })
+  dateSprintEnd?: string;
+
   @ManyToOne(() => TableEntity, (table) => table.tasks)
   table: TableEntity;
 

@@ -29,8 +29,6 @@ export class TaskService {
   }
 
   async updateTask(task: TaskEntity) {
-    console.log(task);
-
     const updatedTask = await this.taskRepository.getTaskById(task.id);
 
     return await this.taskRepository.saveTask(
@@ -39,5 +37,11 @@ export class TaskService {
         ...task,
       }),
     );
+  }
+
+  async deleteTask(taskId: string) {
+    const deletedTask = await this.taskRepository.getTaskById(taskId);
+
+    return await this.taskRepository.removeTask(deletedTask);
   }
 }

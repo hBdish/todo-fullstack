@@ -22,7 +22,6 @@ const CompanyPage = observer(() => {
   return (
     <Container component="main" maxWidth="xl">
       <CssBaseline />
-      {/*<CollapsibleTable company={companyStore.company} />*/}
       <ProjectsTable projects={companyStore.company?.project || []} />
     </Container>
   );

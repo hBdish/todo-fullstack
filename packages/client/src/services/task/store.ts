@@ -19,14 +19,18 @@ class TaskStore {
 
   // async
   async updateTask(task: Task) {
-    console.log(task);
-
     const updatedTask = await TaskService.putTask(task);
 
     runInAction(() => {
-      this.tasks = this.tasks.filter((t) => t.id !== updatedTask.id);
+      this.tasks = this.tasks.map((t) => {
+        if (t.id === updatedTask.id) return updatedTask;
 
-      this.tasks.push(updatedTask);
+        return t;
+      });
+
+      // this.tasks = this.tasks.filter((t) => t.id !== updatedTask.id);
+      //
+      // this.tasks.push(updatedTask);
     });
   }
 }

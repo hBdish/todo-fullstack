@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { observer } from 'mobx-react-lite';
-import { FormEvent, useEffect } from 'react';
+import { FormEvent } from 'react';
 
 import { useStores } from '@services';
 import { useNavigate } from 'react-router-dom';
@@ -22,10 +22,6 @@ import { ROUTES } from '@data';
 const AuthPage = observer(() => {
   const { loginStore } = useStores();
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   // loginStore.auth && navigate(ROUTES.Companies);
-  // }, [loginStore.auth, navigate]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

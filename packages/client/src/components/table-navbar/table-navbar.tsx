@@ -1,7 +1,11 @@
-import { BottomNavigation, BottomNavigationAction, Box } from '@mui/material';
+import { BottomNavigation, BottomNavigationAction } from '@mui/material';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import { Dispatch, SetStateAction, useState } from 'react';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Dispatch, SetStateAction } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { ROUTES } from '@data';
 
 interface TableNavbar {
   value: number;
@@ -10,6 +14,7 @@ interface TableNavbar {
 
 const TableNavbar = (props: TableNavbar) => {
   const { value, setValue } = props;
+  const navigate = useNavigate();
 
   return (
     <BottomNavigation
@@ -27,6 +32,13 @@ const TableNavbar = (props: TableNavbar) => {
     >
       <BottomNavigationAction label="Доска" icon={<TableChartIcon />} />
       <BottomNavigationAction label="Задачи" icon={<AssignmentIcon />} />
+      <BottomNavigationAction
+        label="Вернуться"
+        onClick={() => {
+          navigate(ROUTES.Companies);
+        }}
+        icon={<ArrowBackIcon />}
+      />
     </BottomNavigation>
   );
 };
