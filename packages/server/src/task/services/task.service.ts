@@ -27,4 +27,17 @@ export class TaskService {
 
     return await this.taskRepository.saveTask(createdTask);
   }
+
+  async updateTask(task: TaskEntity) {
+    console.log(task);
+
+    const updatedTask = await this.taskRepository.getTaskById(task.id);
+
+    return await this.taskRepository.saveTask(
+      plainToInstance(TaskEntity, {
+        ...updatedTask,
+        ...task,
+      }),
+    );
+  }
 }

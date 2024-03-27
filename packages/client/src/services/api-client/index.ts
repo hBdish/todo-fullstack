@@ -42,6 +42,10 @@ class ApiClient {
     return this.client.put<T>(url, body, config).then(({ data }) => data);
   }
 
+  patch<T>(url: string, body?: unknown, config?: AxiosRequestConfig) {
+    return this.client.patch<T>(url, body, config).then(({ data }) => data);
+  }
+
   delete<T>(url: string, config?: AxiosRequestConfig) {
     return this.client.delete<T>(url, config).then(({ data }) => data);
   }
