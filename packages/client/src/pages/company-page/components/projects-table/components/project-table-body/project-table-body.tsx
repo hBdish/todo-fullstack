@@ -22,7 +22,7 @@ const ProjectTableBody = observer((props: ProjectTableBody) => {
   const { projects } = props;
   const { projectStore } = useStores();
   const navigate = useNavigate();
-  const [showCreateModal, setShowCreateModal] = useState(false);
+
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [editableProject, setEditableProject] = useState<Project>();
 
@@ -79,10 +79,7 @@ const ProjectTableBody = observer((props: ProjectTableBody) => {
           </Table.Cell>
         </Table.Row>
       ))}
-      <CreateProjectModal
-        open={showCreateModal}
-        handleClose={() => setShowCreateModal(false)}
-      />
+
       {editableProject && (
         <UpdateProjectModal
           project={editableProject}

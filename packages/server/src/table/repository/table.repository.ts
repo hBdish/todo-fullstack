@@ -8,6 +8,18 @@ export class TableRepository extends Repository<TableEntity> {
     super(TableEntity, dataSource.createEntityManager());
   }
 
+  async getTableById(id: string) {
+    const table = await this.findOne({
+      where: { id },
+    });
+
+    if (!table) {
+      throw new NotFoundException(`Не удалось найти доску с id ` + id);
+    }
+
+    return table;
+  }
+
   async saveTable(table: TableEntity) {
     const savedTable = await this.save(table);
 

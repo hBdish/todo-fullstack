@@ -12,7 +12,10 @@ export class TableEntity extends AbstractEntity implements Table {
   @Column({ default: '' })
   name: string;
 
-  @Column({ type: 'jsonb', default: [] })
+  @Column({
+    type: 'jsonb',
+    default: ['Не начаты', 'В работе', 'Выполнены', 'Невозможно выполнить'],
+  })
   workflow: string[];
 
   @Column({ nullable: true })
