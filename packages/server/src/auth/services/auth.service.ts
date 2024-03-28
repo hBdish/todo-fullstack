@@ -5,7 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 
 import { RequestContext } from '../../shared/request-context';
 import { UserService } from '../../user/services';
-import { CreateUserDto, OutputUserDto } from '../../user/dtos';
+import { AddUserDto, CreateUserDto, OutputUserDto } from '../../user/dtos';
 
 import { AuthTokenOutput, UserAccessTokenClaims } from '../dtos';
 

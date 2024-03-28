@@ -34,7 +34,9 @@ export class ProjectRepository extends Repository<ProjectEntity> {
       where: { id },
       relations: {
         table: true,
-        task: true,
+        task: {
+          user: true,
+        },
       },
     });
 

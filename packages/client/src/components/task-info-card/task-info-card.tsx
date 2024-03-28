@@ -1,5 +1,7 @@
 import { Box, Modal, TextField, Typography } from '@mui/material';
-import { Task } from '@services';
+import { Task, useStores } from '@services';
+import { UserSelect } from '../user-select';
+import { observer } from 'mobx-react-lite';
 
 interface TaskInfoCard {
   open: boolean;
@@ -7,8 +9,10 @@ interface TaskInfoCard {
   task: Task;
 }
 
-const TaskInfoCard = (props: TaskInfoCard) => {
+const TaskInfoCard = observer((props: TaskInfoCard) => {
   const { open, handleClose, task } = props;
+  const { companyStore } = useStores();
+
   return (
     <Modal
       open={open}
@@ -45,9 +49,11 @@ const TaskInfoCard = (props: TaskInfoCard) => {
           multiline
           maxRows={8}
         />
+
+        <UserSelect activeUser={task.user} users={companyStore.users} />
       </Box>
     </Modal>
   );
-};
+});
 
 export { TaskInfoCard };

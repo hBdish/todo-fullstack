@@ -1,4 +1,5 @@
 import { Project } from '../project';
+import { User } from '../user';
 
 export interface Company {
   id: string;
@@ -7,4 +8,5 @@ export interface Company {
   deleteAt: string;
   name: string;
   project: Project[];
+  user: User[];
 }

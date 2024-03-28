@@ -2,7 +2,6 @@ import { Table as TableInterface, Task } from '@services';
 import { useDropCustom } from '@hooks';
 
 import { Table } from '../table';
-import { TaskCard } from '../task-card';
 
 import { TaskTableHeader } from './components';
 
@@ -15,7 +14,7 @@ interface TaskTable {
   tasks: Task[];
 }
 
-const TaskTable = (props: TaskTable) => {
+const TaskTable = observer((props: TaskTable) => {
   const { table, tasks } = props;
   const tableColumnWidth = table.workflow.map(() => 'auto');
 
@@ -26,6 +25,7 @@ const TaskTable = (props: TaskTable) => {
         {table.workflow.map((status) => {
           return (
             <TaskTableCell
+              className={styles.taskTableCell}
               key={status}
               status={status}
               tasks={tasks.filter((task) => task.status === status)}
@@ -35,6 +35,6 @@ const TaskTable = (props: TaskTable) => {
       </Table.Row>
     </Table>
   );
-};
+});
 
 export { TaskTable };

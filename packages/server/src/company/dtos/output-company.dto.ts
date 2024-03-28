@@ -14,5 +14,5 @@ export class OutputCompanyDto extends AbstractDto implements Company {
   name: string;
 
   @Expose()
-  users: OutputUserDto[];
+  user: OutputUserDto[];
 }

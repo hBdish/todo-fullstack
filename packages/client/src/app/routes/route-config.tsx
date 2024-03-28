@@ -1,6 +1,12 @@
 import { ROUTES } from '@data';
 import { RouteProps } from 'react-router-dom';
-import { AuthPage, CompanyPage, RegPage, TablePage } from '@pages';
+import {
+  AddUserToCompanyPage,
+  AuthPage,
+  CompanyPage,
+  RegPage,
+  TablePage,
+} from '@pages';
 
 export type AppRoutesProps = RouteProps & {
   authOnly?: boolean;
@@ -14,6 +20,10 @@ export const routeConfig: Record<keyof typeof ROUTES, AppRoutesProps> = {
   Registration: {
     path: ROUTES.Registration,
     element: <RegPage />,
+  },
+  AddUser: {
+    path: ROUTES.AddUser,
+    element: <AddUserToCompanyPage />,
   },
   Companies: {
     path: ROUTES.Companies,

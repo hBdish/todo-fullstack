@@ -9,6 +9,7 @@
     flex-direction: column;
     align-items: start;
     min-height: 3pc;
+    border-radius: 0 0 0.5rem 0.5rem;
   }
 }
 
@@ -28,6 +29,7 @@
   display: flex;
   align-items: center;
   min-height: 2pc;
+  border-radius: 0.5rem 0.5rem 0 0;
 }
 
 .tableHeader {

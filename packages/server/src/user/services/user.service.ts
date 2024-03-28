@@ -8,10 +8,17 @@ import { compare, hash } from 'bcrypt';
 
 import { RequestContext } from '../../shared/request-context';
 
-import { CreateUserDto, OutputUserDto, UpdateUserDto } from '../dtos';
+import {
+  AddUserDto,
+  CreateUserDto,
+  OutputUserDto,
+  UpdateUserDto,
+} from '../dtos';
 import { UserEntity } from '../entities';
 import { UserRepository } from '../repositories';
 import { CompanyService } from '../../company/services';
+import { CompanyEntity } from '../../company/entities';
+import { CreateCompanyDto } from '../../company/dtos';
 
 @Injectable()
 export class UserService {
@@ -27,6 +34,31 @@ export class UserService {
     const user = plainToInstance(UserEntity, input);
     user.password = await hash(input.password, 10);
 
+    user.company = await this.companyService.createCompany(
+      ctx,
+      plainToInstance(CreateCompanyDto, {
+        name: 'company',
+      }),
+    );
+
+    const savedUser = await this.userRepository.saveUser(user);
+
+    if (!savedUser) {
+      throw new HttpException('Не удалось создать пользователя', 403);
+    }
+
+    return plainToInstance(OutputUserDto, user, {
+      excludeExtraneousValues: true,
+    });
+  }
+
+  async addUserToCompany(
+    ctx: RequestContext,
+    input: AddUserDto,
+  ): Promise<OutputUserDto> {
+    const user = plainToInstance(UserEntity, input);
+    user.password = await hash(input.password, 10);
+
     user.company = await this.companyService.getCompanyById(
       ctx,
       input.companyId,
@@ -35,7 +67,7 @@ export class UserService {
     const savedUser = await this.userRepository.saveUser(user);
 
     if (!savedUser) {
-      throw new HttpException('Не удалось создать пользователя', 403);
+      throw new HttpException('Не удалось добавить пользователя', 403);
     }
 
     return plainToInstance(OutputUserDto, user, {

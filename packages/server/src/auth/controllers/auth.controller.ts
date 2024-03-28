@@ -2,7 +2,7 @@ import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 
 import { ReqContext, RequestContext } from '../../shared/request-context';
 
-import { CreateUserDto, OutputUserDto } from '../../user/dtos';
+import { AddUserDto, CreateUserDto, OutputUserDto } from '../../user/dtos';
 
 import { JwtRefreshGuard, LocalAuthGuard } from '../guards';
 import { AuthService } from '../services';

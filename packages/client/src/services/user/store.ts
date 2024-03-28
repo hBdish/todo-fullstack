@@ -1,4 +1,4 @@
-import { User } from './types.ts';
+import { AddUserToCompany, CreateUser, User } from './types.ts';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { UserService } from './user-service.ts';
 
@@ -33,6 +33,22 @@ class UserStore {
   // async
   async getUser(userId: string) {
     const user = await UserService.getUserInfo(userId);
+
+    runInAction(() => {
+      this.user = user;
+    });
+  }
+
+  async addUserToCompany(addUser: AddUserToCompany) {
+    const user = await UserService.addUserToCompany(addUser);
+
+    runInAction(() => {
+      this.user = user;
+    });
+  }
+
+  async registerUser(createdUser: CreateUser) {
+    const user = await UserService.registerUser(createdUser);
 
     runInAction(() => {
       this.user = user;

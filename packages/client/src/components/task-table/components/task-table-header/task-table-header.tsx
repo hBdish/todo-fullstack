@@ -2,6 +2,7 @@ import { Table } from '@components';
 import { Table as TableInterface } from '@services';
 
 import styles from './task-table-header.module.scss';
+import { Typography } from '@mui/material';
 
 interface TaskTableHeader {
   table: TableInterface;
@@ -17,7 +18,7 @@ const TaskTableHeader = (props: TaskTableHeader) => {
             className={styles.taskTableCellHeader}
             key={workStatus}
           >
-            {workStatus}
+            <Typography> {workStatus.toUpperCase()}</Typography>
           </Table.HeaderCell>
         );
       })}

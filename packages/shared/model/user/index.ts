@@ -1,4 +1,4 @@
-import {Company} from "../company";
+import { Company } from "../company";
 
 export interface User {
   id: string;
@@ -6,13 +6,13 @@ export interface User {
   email: string;
   password: string;
   photo: string;
-  company: Company
+  company: Company;
   createdAt: Date;
   updatedAt: Date | null;
   deleteAt: Date | null;
 }
 
-export interface CreateUser {
+export interface AddUser {
   name: string;
   email: string;
   password: string;

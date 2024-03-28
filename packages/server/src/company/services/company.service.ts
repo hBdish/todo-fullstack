@@ -6,6 +6,7 @@ import { RequestContext } from '../../shared/request-context';
 import { CompanyRepository } from '../repositories';
 import { CompanyEntity } from '../entities';
 import { CreateCompanyDto, OutputCompanyDto } from '../dtos';
+import { UserEntity } from '../../user/entities';
 
 @Injectable()
 export class CompanyService {
@@ -40,6 +41,24 @@ export class CompanyService {
     await this.companyRepository.saveCompany(company);
 
     return plainToInstance(OutputCompanyDto, company);
+  }
+
+  async patchCompaniesUsers(companyId: string, user: UserEntity) {
+    const company = await this.getCompanyByIdWithRelations(null, companyId);
+
+    const foundUser = company.user.find((u) => u.id === user.id);
+
+    if (foundUser) {
+      company.user = company.user.filter((u) => u.id !== foundUser.id);
+    } else {
+      company.user.push(user);
+    }
+
+    const savedCompany = await this.companyRepository.saveCompany(
+      plainToInstance(CompanyEntity, company),
+    );
+
+    return plainToInstance(OutputCompanyDto, savedCompany);
   }
 
   async getCompanyById(

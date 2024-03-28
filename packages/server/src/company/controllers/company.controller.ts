@@ -16,6 +16,7 @@ import { CreateCompanyDto, OutputCompanyDto } from '../dtos';
 import { CompanyService } from '../services';
 import { JwtAuthGuard } from '../../auth/guards';
 import { CompanyEntity } from '../entities';
+import { UserEntity } from '../../user/entities';
 
 @Controller('company')
 export class CompanyController {
@@ -47,6 +48,16 @@ export class CompanyController {
     @Body() createCompanyDto: CreateCompanyDto,
   ): Promise<OutputCompanyDto> {
     return await this.companyService.patchCompany(ctx, id, createCompanyDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('user/:id')
+  async patchCompanyUserById(
+    @ReqContext() ctx: RequestContext,
+    @Param('id', UuidValidationPipe) id: string,
+    @Body() user: UserEntity,
+  ): Promise<OutputCompanyDto> {
+    return await this.companyService.patchCompaniesUsers(id, user);
   }
 
   @UseGuards(JwtAuthGuard)

@@ -1,8 +1,16 @@
 import { apiClient } from '../api-client';
-import { User } from './types.ts';
+import { AddUserToCompany, CreateUser, User } from './types.ts';
 
 export class UserService {
   static getUserInfo(id: string) {
     return apiClient.get<User>(`users/${id}`);
+  }
+
+  static registerUser(user: CreateUser) {
+    return apiClient.post<User>('users', user);
+  }
+
+  static addUserToCompany(addUser: AddUserToCompany) {
+    return apiClient.post<User>('users/company', addUser);
   }
 }

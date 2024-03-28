@@ -1,4 +1,4 @@
-import { Company } from '../company';
+import { Company } from '@services';
 
 export interface User {
   id: string;
@@ -10,4 +10,19 @@ export interface User {
   password: string;
   photo: string;
   company: Company;
+}
+
+export interface CreateUser {
+  name: string;
+  email: string;
+  password: string;
+  photo: string;
+}
+
+export interface AddUserToCompany {
+  name: string;
+  email: string;
+  password: string;
+  photo: string;
+  companyId: string;
 }

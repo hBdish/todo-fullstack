@@ -1,5 +1,6 @@
 import { Table } from '../table';
 import { Project } from '../project';
+import { User } from '../user';
 
 export interface Task {
   id: string;
@@ -8,6 +9,7 @@ export interface Task {
   description: string;
   name: string;
   status: string;
+  user: User | null;
 }
 
 export interface CreateTask {

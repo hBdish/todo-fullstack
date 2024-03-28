@@ -1,7 +1,7 @@
 import { IsEmail, IsString, Length } from 'class-validator';
-import { UserEntity } from '../entities';
+import { AddUser } from '@packages/shared';
 
-export class CreateUserDto extends UserEntity {
+export class AddUserDto implements AddUser {
   @IsString()
   name: string;
 
@@ -14,4 +14,7 @@ export class CreateUserDto extends UserEntity {
 
   @IsString()
   photo: string;
+
+  @IsString()
+  companyId: string;
 }
