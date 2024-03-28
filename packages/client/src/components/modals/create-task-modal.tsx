@@ -19,6 +19,7 @@ interface CreateTaskModal {
 const CreateTaskModal = observer((props: CreateTaskModal) => {
   const { open, handleClose } = props;
   const { projectStore, tableStore, taskStore } = useStores();
+  const workflow = tableStore.activeTable?.workflow || [];
   const [task, setTask] = useState<{
     name: string;
     description: string;
@@ -26,10 +27,8 @@ const CreateTaskModal = observer((props: CreateTaskModal) => {
   }>({
     name: '',
     description: '',
-    status: '',
+    status: workflow?.[0] || '',
   });
-
-  const workflow = tableStore.activeTable?.workflow || [];
 
   useEffect(() => {
     taskStore.setCreateTaskData('project', projectStore.project as Project);
@@ -53,10 +52,11 @@ const CreateTaskModal = observer((props: CreateTaskModal) => {
       <Box
         sx={{
           position: 'absolute' as const,
+          display: 'grid',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: 400,
+          width: 600,
           bgcolor: 'background.paper',
           border: '2px solid #000',
           boxShadow: 24,
@@ -66,7 +66,7 @@ const CreateTaskModal = observer((props: CreateTaskModal) => {
         }}
       >
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Новый проект
+          Новая задача
         </Typography>
         <TextField
           onChange={({ target }) => {
@@ -80,14 +80,19 @@ const CreateTaskModal = observer((props: CreateTaskModal) => {
           onChange={({ target }) => {
             setTask((task) => ({ ...task, description: target.value }));
           }}
+          multiline
+          maxRows={8}
           id="create-task-desc"
-          label="Тип проекта"
+          label="Описание задачи"
           variant="standard"
         />
         <Select
+          sx={{
+            width: 200,
+          }}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={workflow?.[0] || ''}
+          value={task.status}
           label="Статус"
           onChange={({ target }) => {
             setTask((task) => ({ ...task, status: target.value }));

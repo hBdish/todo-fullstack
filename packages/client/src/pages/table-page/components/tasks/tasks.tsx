@@ -17,12 +17,13 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 import { Task, useStores } from '@services';
-import { CreateTaskModal } from '@components';
+import { CreateTaskModal, TaskInfoCard } from '@components';
 
 const MorePopover = observer(({ task }: { task: Task }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const { taskStore } = useStores();
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
 
@@ -66,6 +67,8 @@ const Tasks = observer(() => {
   const { tableStore, taskStore } = useStores();
 
   const [showCreateTaskModal, setShowCreateTaskModal] = useState(false);
+  const [showInfoTaskModal, setShowInfoTaskModal] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
   return (
     <>
@@ -88,7 +91,16 @@ const Tasks = observer(() => {
             disableGutters
             secondaryAction={<MorePopover key={task.id} task={task} />}
           >
-            <ListItemText primary={task.name} />
+            <ListItemText
+              sx={{
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                setSelectedTask(task);
+                setShowInfoTaskModal(true);
+              }}
+              primary={task.name}
+            />
 
             <FormControl>
               <InputLabel id="select_id">Статус</InputLabel>
@@ -117,6 +129,13 @@ const Tasks = observer(() => {
         open={showCreateTaskModal}
         handleClose={() => setShowCreateTaskModal(false)}
       />
+      {selectedTask && (
+        <TaskInfoCard
+          open={showInfoTaskModal}
+          handleClose={() => setShowInfoTaskModal(false)}
+          task={selectedTask}
+        />
+      )}
     </>
   );
 });
