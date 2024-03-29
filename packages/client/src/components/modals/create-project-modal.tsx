@@ -35,7 +35,6 @@ const CreateProjectModal = (props: CreateProjectModal) => {
           transform: 'translate(-50%, -50%)',
           width: 400,
           bgcolor: 'background.paper',
-          border: '2px solid #000',
           boxShadow: 24,
           pt: 2,
           px: 4,
@@ -64,6 +63,7 @@ const CreateProjectModal = (props: CreateProjectModal) => {
           }}
           id="standard-basic"
           label="Тип проекта"
+          variant="standard"
         />
         <input
           onChange={({ target }) => {
@@ -79,7 +79,9 @@ const CreateProjectModal = (props: CreateProjectModal) => {
           type={'file'}
           accept={'image/png, image/jpeg'}
         />
-        <Button onClick={onCreateHandle}>Создать проект</Button>
+        <Button variant={'outlined'} onClick={onCreateHandle}>
+          Создать проект
+        </Button>
       </Box>
     </Modal>
   );

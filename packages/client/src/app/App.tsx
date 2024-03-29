@@ -10,6 +10,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
+        <CssBaseline />
         <AppRouter />
       </BrowserRouter>
     </ThemeProvider>

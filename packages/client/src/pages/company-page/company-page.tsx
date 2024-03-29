@@ -1,5 +1,15 @@
-import { Button, Container, CssBaseline, Drawer, Grid } from '@mui/material';
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Box,
+  Button,
+  Container,
+  Drawer,
+} from '@mui/material';
 import { observer } from 'mobx-react-lite';
+import PeopleIcon from '@mui/icons-material/People';
+import AddIcon from '@mui/icons-material/Add';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 import { useStores } from '@services';
 import { useEffect, useState } from 'react';
@@ -7,9 +17,14 @@ import { ProjectsTable } from './components';
 import { CreateProjectModal } from '@components';
 import { UsersList } from '../../components/users/users-list.tsx';
 
+import { ROUTES, setAccessKey, setRefreshKey } from '@data';
+
+import { useNavigate } from 'react-router-dom';
+
 const CompanyPage = observer(() => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showUsers, setShowUsers] = useState(false);
+  const navigate = useNavigate();
 
   const {
     companyStore,
@@ -25,27 +40,45 @@ const CompanyPage = observer(() => {
   }
 
   return (
-    <>
-      <Container component="main" maxWidth="xl">
-        <CssBaseline />
-
-        <Button
+    <Box
+      sx={{
+        display: 'flex',
+      }}
+    >
+      <BottomNavigation
+        sx={{
+          width: 80,
+          height: '100vh',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
+        showLabels
+      >
+        <BottomNavigationAction
           onClick={() => {
             setShowCreateModal(true);
           }}
-          sx={{ display: 'grid', width: '100%', justifyContent: 'center' }}
-        >
-          Создать проект
-        </Button>
-        <Button
+          label="Создать задачу"
+          icon={<AddIcon />}
+        />
+        <BottomNavigationAction
           onClick={() => {
             setShowUsers(true);
           }}
-          sx={{ display: 'grid', width: '100%', justifyContent: 'center' }}
-        >
-          Управление пользователями
-        </Button>
-
+          label="Участники"
+          icon={<PeopleIcon />}
+        />
+        <BottomNavigationAction
+          label="Выйти"
+          onClick={() => {
+            setRefreshKey('');
+            setAccessKey('');
+            navigate(ROUTES.SignIn);
+          }}
+          icon={<ExitToAppIcon />}
+        />
+      </BottomNavigation>
+      <Container component="main" maxWidth="xl">
         <CreateProjectModal
           open={showCreateModal}
           handleClose={() => setShowCreateModal(false)}
@@ -59,7 +92,7 @@ const CompanyPage = observer(() => {
       >
         <UsersList />
       </Drawer>
-    </>
+    </Box>
   );
 });
 
