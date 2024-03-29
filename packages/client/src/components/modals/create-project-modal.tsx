@@ -28,6 +28,8 @@ const CreateProjectModal = (props: CreateProjectModal) => {
       <Box
         sx={{
           position: 'absolute' as const,
+          display: 'grid',
+          gap: '12px',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
@@ -40,7 +42,12 @@ const CreateProjectModal = (props: CreateProjectModal) => {
           pb: 3,
         }}
       >
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+        <Typography
+          textAlign={'center'}
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+        >
           Новый проект
         </Typography>
         <TextField
@@ -57,7 +64,6 @@ const CreateProjectModal = (props: CreateProjectModal) => {
           }}
           id="standard-basic"
           label="Тип проекта"
-          variant="standard"
         />
         <input
           onChange={({ target }) => {

@@ -13,6 +13,9 @@ export class OutputCompanyDto extends AbstractDto implements Company {
   @IsString()
   name: string;
 
+  @IsString()
+  createdUseId: string;
+
   @Expose()
   user: OutputUserDto[];
 }

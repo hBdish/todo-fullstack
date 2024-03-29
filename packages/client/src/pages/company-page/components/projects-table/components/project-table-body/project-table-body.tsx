@@ -1,18 +1,17 @@
 import { format } from 'date-fns';
+import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
-import { Avatar, IconButton } from '@mui/material';
+import { Avatar, IconButton, Typography } from '@mui/material';
 
 import { Project, useStores } from '@services';
-import { CreateProjectModal, Table } from '@components';
-
+import { UpdateProjectModal, Table } from '@components';
 import { routeToTableId } from '@data';
-import styles from './project-table-body.module.scss';
-import { useState } from 'react';
-import { observer } from 'mobx-react-lite';
 import { stringAvatar } from '@shared';
-import { UpdateProjectModal } from '../../../../../../components/modals/update-project-modal.tsx';
+
+import styles from './project-table-body.module.scss';
 
 interface ProjectTableBody {
   projects: Project[];
@@ -38,21 +37,23 @@ const ProjectTableBody = observer((props: ProjectTableBody) => {
           className={styles.tableRow}
           onClick={() => onTableRowClick(project.id)}
         >
-          <Table.Cell className={styles.tableCeil}>
+          <Table.Cell className={styles.tableCell}>
             {project?.photo ? (
               <Avatar alt="img_alt" src={project.photo} />
             ) : (
               <Avatar {...stringAvatar(project.name)} />
             )}
           </Table.Cell>
-          <Table.Cell className={styles.tableCeil}>{project.name}</Table.Cell>
+          <Table.Cell className={styles.tableCell}>{project.name}</Table.Cell>
 
-          <Table.Cell className={styles.tableCeil}>{project.type}</Table.Cell>
-          <Table.Cell className={styles.tableCeil}>
-            {format(project.createdAt, 'yyyy-MM-dd HH:mm')}
+          <Table.Cell className={styles.tableCell}>{project.type}</Table.Cell>
+          <Table.Cell className={styles.tableCell}>
+            <Typography>
+              {format(project.createdAt, 'dd.MM.yy HH:mm')}
+            </Typography>
           </Table.Cell>
 
-          <Table.Cell className={styles.tableCeil}>
+          <Table.Cell className={styles.tableCell}>
             <IconButton
               color="success"
               onClick={(event) => {
@@ -65,7 +66,7 @@ const ProjectTableBody = observer((props: ProjectTableBody) => {
               <EditIcon />
             </IconButton>
           </Table.Cell>
-          <Table.Cell className={styles.tableCeil}>
+          <Table.Cell className={styles.tableCell}>
             <IconButton
               color={'error'}
               onClick={(event) => {

@@ -8,9 +8,10 @@
     display: flex;
     flex-direction: column;
     align-items: start;
+    justify-content: center;
     min-height: 3pc;
-    border-radius: 0 0 0.5rem 0.5rem;
   }
+
 }
 
 .style_projects {
@@ -29,7 +30,7 @@
   display: flex;
   align-items: center;
   min-height: 2pc;
-  border-radius: 0.5rem 0.5rem 0 0;
+  //border-radius: 0.5rem 0.5rem 0 0;
 }
 
 .tableHeader {

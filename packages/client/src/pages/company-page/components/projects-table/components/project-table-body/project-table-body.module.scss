@@ -1,8 +1,13 @@
 .tableRow {
   cursor: pointer;
 
+  .tableCell {
+    padding:  8px 4px 4px 4px;
+  }
 
-  & .tableCeil {
-
+  &:hover .tableCell {
+    background: var(--color-hover);
   }
 }
+
+

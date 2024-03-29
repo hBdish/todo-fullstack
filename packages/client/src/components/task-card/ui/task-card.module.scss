@@ -1,9 +1,9 @@
 .taskCard {
   //display: flex;
   width: 312px;
-  height: 80px;
+  height: 160px;
   //background: var(--backgrond-card-color);
-  cursor: pointer;
+
   //
   //@media (hover: hover) {
   //  &:hover {
@@ -16,4 +16,16 @@
   //    background: var(--card-color-hovered);
   //  }
   //}
+
+  .content {
+    width: 312px;
+    height: 160px;
+    cursor: pointer;
+  }
+
+  .userSelect {
+    position: absolute;
+    margin-top: 96px;
+    margin-left: 240px;
+  }
 }

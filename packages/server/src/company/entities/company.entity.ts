@@ -11,6 +11,9 @@ export class CompanyEntity extends AbstractEntity implements Company {
   @Column({ default: '' })
   name: string;
 
+  @Column({ default: '' })
+  createdUseId: string;
+
   @OneToMany(() => UserEntity, (user) => user.company, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',

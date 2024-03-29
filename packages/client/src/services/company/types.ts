@@ -7,6 +7,7 @@ export interface Company {
   updatedAt: string;
   deleteAt: string;
   name: string;
+  createdUseId: string;
   project: Project[];
   user: User[];
 }

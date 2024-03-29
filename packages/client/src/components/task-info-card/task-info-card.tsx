@@ -1,7 +1,8 @@
-import { Box, Modal, TextField, Typography } from '@mui/material';
+import { Box, Modal, TextField } from '@mui/material';
 import { Task, useStores } from '@services';
 import { UserSelect } from '../user-select';
 import { observer } from 'mobx-react-lite';
+import { useEffect, useState } from 'react';
 
 interface TaskInfoCard {
   open: boolean;
@@ -11,7 +12,14 @@ interface TaskInfoCard {
 
 const TaskInfoCard = observer((props: TaskInfoCard) => {
   const { open, handleClose, task } = props;
-  const { companyStore } = useStores();
+  const { taskStore } = useStores();
+
+  const [name, setName] = useState(task.name);
+  const [description, setDescription] = useState(task.description);
+
+  const onBlurUpdate = () => {
+    void taskStore.updateTask({ ...task, name, description });
+  };
 
   return (
     <Modal
@@ -36,21 +44,29 @@ const TaskInfoCard = observer((props: TaskInfoCard) => {
       >
         <TextField
           id="filled-basic"
-          label="Имя"
+          label="Имя задачи"
           variant="filled"
-          value={task.name}
+          value={name}
+          onChange={({ target }) => {
+            setName(target.value);
+          }}
+          onBlur={onBlurUpdate}
         />
 
         <TextField
           id="filled-basic"
           label="Описание"
           variant="filled"
-          value={task.description}
+          value={description}
+          onChange={({ target }) => {
+            setDescription(target.value);
+          }}
+          onBlur={onBlurUpdate}
           multiline
           maxRows={8}
         />
 
-        <UserSelect activeUser={task.user} users={companyStore.users} />
+        <UserSelect activeUser={task.user} activeTask={task} />
       </Box>
     </Modal>
   );

@@ -5,6 +5,7 @@ import { classNames } from '@shared';
 
 import { Task } from '@services';
 import styles from './task-card.module.scss';
+import { UserSelect } from '../../user-select';
 
 const TaskCard = (props: {
   task: Task;
@@ -29,10 +30,16 @@ const TaskCard = (props: {
       variant={'outlined'}
       ref={drag}
       className={classNames(styles.taskCard, {}, [className])}
-      onClick={onClick}
     >
-      <Typography>{task.name}</Typography>
-      <Typography>{task.description}</Typography>
+      <UserSelect
+        className={styles.userSelect}
+        activeUser={task.user}
+        activeTask={task}
+      />
+      <div className={styles.content} onClick={onClick}>
+        <Typography>{task.name}</Typography>
+        <Typography>{task.description}</Typography>
+      </div>
     </Card>
   );
 };

@@ -8,6 +8,8 @@ import { TaskTableHeader } from './components';
 import styles from './task-table.module.scss';
 import { observer } from 'mobx-react-lite';
 import { TaskTableCell } from './components/task-table-cell';
+import React, { useState } from 'react';
+import { TaskInfoCard } from '../task-info-card';
 
 interface TaskTable {
   table: TableInterface;
@@ -19,21 +21,23 @@ const TaskTable = observer((props: TaskTable) => {
   const tableColumnWidth = table.workflow.map(() => 'auto');
 
   return (
-    <Table columnWidths={tableColumnWidth}>
-      <TaskTableHeader table={table} />
-      <Table.Row>
-        {table.workflow.map((status) => {
-          return (
-            <TaskTableCell
-              className={styles.taskTableCell}
-              key={status}
-              status={status}
-              tasks={tasks.filter((task) => task.status === status)}
-            />
-          );
-        })}
-      </Table.Row>
-    </Table>
+    <>
+      <Table columnWidths={tableColumnWidth}>
+        <TaskTableHeader table={table} />
+        <Table.Row>
+          {table.workflow.map((status) => {
+            return (
+              <TaskTableCell
+                className={styles.taskTableCell}
+                key={status}
+                status={status}
+                tasks={tasks.filter((task) => task.status === status)}
+              />
+            );
+          })}
+        </Table.Row>
+      </Table>
+    </>
   );
 });
 
