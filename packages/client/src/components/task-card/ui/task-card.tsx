@@ -37,8 +37,10 @@ const TaskCard = (props: {
         activeTask={task}
       />
       <div className={styles.content} onClick={onClick}>
-        <Typography>{task.name}</Typography>
-        <Typography>{task.description}</Typography>
+        <Typography className={styles.name}>{task.name}</Typography>
+        <Typography className={styles.description}>
+          {task.description}
+        </Typography>
       </div>
     </Card>
   );

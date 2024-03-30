@@ -2,6 +2,7 @@ import type { Project } from './types';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { ProjectService } from './project-service.ts';
 import { CreateProject } from './types';
+import { rootStore } from '../root-store.ts';
 
 class ProjectStore {
   project?: Project;
@@ -28,7 +29,11 @@ class ProjectStore {
   // async
 
   async postProject() {
-    await ProjectService.postProject(this.projectForm);
+    const project = await ProjectService.postProject(this.projectForm);
+
+    runInAction(() => {
+      rootStore.companyStore.company?.project.push(project);
+    });
   }
 
   async patchProject(project: Project) {

@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Box,
   Card,
   IconButton,
   Popover,
@@ -55,7 +56,7 @@ const UserSelect = observer((props: UserSelect) => {
   };
 
   return (
-    <div className={className} sx={{ width: 58 }}>
+    <Box className={className}>
       {activeUserState ? (
         <IconButton onClick={handleClick} aria-describedby={id}>
           {user.photo ? (
@@ -110,7 +111,7 @@ const UserSelect = observer((props: UserSelect) => {
           })}
         </Stack>
       </Popover>
-    </div>
+    </Box>
   );
 });
 

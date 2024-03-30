@@ -58,7 +58,7 @@ const CompanyPage = observer(() => {
           onClick={() => {
             setShowCreateModal(true);
           }}
-          label="Создать задачу"
+          label="Создать проект"
           icon={<AddIcon />}
         />
         <BottomNavigationAction

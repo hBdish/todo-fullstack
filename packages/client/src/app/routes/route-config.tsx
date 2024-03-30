@@ -1,5 +1,5 @@
 import { ROUTES } from '@data';
-import { RouteProps } from 'react-router-dom';
+import { Navigate, RouteProps } from 'react-router-dom';
 import {
   AddUserToCompanyPage,
   AuthPage,
@@ -37,6 +37,6 @@ export const routeConfig: Record<keyof typeof ROUTES, AppRoutesProps> = {
   },
   Index: {
     path: ROUTES.Index,
-    element: <></>,
+    element: <Navigate to={ROUTES.SignIn}></Navigate>,
   },
 };

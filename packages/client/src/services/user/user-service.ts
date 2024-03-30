@@ -7,7 +7,7 @@ export class UserService {
   }
 
   static registerUser(user: CreateUser) {
-    return apiClient.post<User>('users', user);
+    return apiClient.post<User>('auth/register', user);
   }
 
   static addUserToCompany(addUser: AddUserToCompany) {

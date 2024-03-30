@@ -19,7 +19,11 @@ interface ProjectTableBody {
 
 const ProjectTableBody = observer((props: ProjectTableBody) => {
   const { projects } = props;
-  const { projectStore } = useStores();
+  const {
+    projectStore,
+    companyStore,
+    userStore: { user },
+  } = useStores();
   const navigate = useNavigate();
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -49,7 +53,10 @@ const ProjectTableBody = observer((props: ProjectTableBody) => {
           <Table.Cell className={styles.tableCell}>{project.type}</Table.Cell>
           <Table.Cell className={styles.tableCell}>
             <Typography>
-              {format(project.createdAt, 'dd.MM.yy HH:mm')}
+              {format(
+                project?.updatedAt || project.createdAt,
+                'dd.MM.yy HH:mm',
+              )}
             </Typography>
           </Table.Cell>
 
@@ -71,7 +78,11 @@ const ProjectTableBody = observer((props: ProjectTableBody) => {
               color={'error'}
               onClick={(event) => {
                 event.stopPropagation();
-                void projectStore.deleteProject(project.id);
+                void projectStore
+                  .deleteProject(project.id)
+                  .then(
+                    () => void companyStore.getCompanyData(user.company.id),
+                  );
               }}
               aria-label="delete"
             >

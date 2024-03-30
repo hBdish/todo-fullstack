@@ -77,10 +77,7 @@ const AuthPage = observer(() => {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Запомнить меня"
-            />
+
             <Button
               type="submit"
               fullWidth
@@ -90,13 +87,8 @@ const AuthPage = observer(() => {
               Войти
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Забыли пароль?
-                </Link>
-              </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href={ROUTES.Registration} variant="body2">
                   {'Зарегистрироваться'}
                 </Link>
               </Grid>

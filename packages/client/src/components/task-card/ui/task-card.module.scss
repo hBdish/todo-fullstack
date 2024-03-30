@@ -1,31 +1,33 @@
 .taskCard {
-  //display: flex;
+
   width: 312px;
   height: 160px;
-  //background: var(--backgrond-card-color);
 
-  //
-  //@media (hover: hover) {
-  //  &:hover {
-  //    background: var(--card-color-hovered);
-  //  }
-  //}
-  //
-  //@media (hover: none) {
-  //  &:active {
-  //    background: var(--card-color-hovered);
-  //  }
-  //}
-
-  .content {
-    width: 312px;
-    height: 160px;
-    cursor: pointer;
-  }
 
   .userSelect {
     position: absolute;
     margin-top: 96px;
     margin-left: 240px;
+  }
+
+  .content {
+    width: 312px;
+    height: 160px;
+    cursor: pointer;
+    padding: 8px;
+
+
+  }
+
+  .name {
+    font-size: large;
+    font-weight: bold;
+  }
+
+  .description {
+    max-width: 240px;
+    max-height: 64px;
+    overflow: hidden;
+    text-overflow: ellipsis
   }
 }

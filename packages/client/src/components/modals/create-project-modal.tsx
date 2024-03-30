@@ -8,7 +8,11 @@ interface CreateProjectModal {
 
 const CreateProjectModal = (props: CreateProjectModal) => {
   const { open = false, handleClose } = props;
-  const { companyStore, projectStore } = useStores();
+  const {
+    companyStore,
+    projectStore,
+    userStore: { user },
+  } = useStores();
 
   const onCreateHandle = () => {
     projectStore.setProjectForm('companyId', companyStore.company?.id || '');

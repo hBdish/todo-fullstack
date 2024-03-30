@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import {
+  Box,
   Button,
   CssBaseline,
+  Divider,
   FormControl,
   IconButton,
   InputLabel,
@@ -18,6 +20,8 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 import { Task, useStores } from '@services';
 import { CreateTaskModal, TaskInfoCard } from '@components';
+
+import styles from './tasks.module.scss';
 
 const MorePopover = observer(({ task }: { task: Task }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -85,43 +89,46 @@ const Tasks = observer(() => {
             Создать Задачу
           </Button>
         </ListItem>
+        <Divider />
         {taskStore.tasks.map((task) => (
           <ListItem
             key={task.id}
             disableGutters
             secondaryAction={<MorePopover key={task.id} task={task} />}
           >
-            <ListItemText
-              sx={{
-                cursor: 'pointer',
-              }}
-              onClick={() => {
-                setSelectedTask(task);
-                setShowInfoTaskModal(true);
-              }}
-              primary={task.name}
-            />
-
-            <FormControl>
-              <InputLabel id="select_id">Статус</InputLabel>
-              <Select
-                labelId="select_id"
-                value={task.status || ''}
-                label="Статус"
-                onChange={({ target }) => {
-                  void taskStore.updateTask({
-                    ...task,
-                    status: target.value,
-                  });
+            <Box className={styles.taskCell}>
+              <ListItemText
+                sx={{
+                  cursor: 'pointer',
                 }}
-              >
-                {tableStore.activeTable?.workflow.map((status) => (
-                  <MenuItem key={status} value={status}>
-                    {status}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                onClick={() => {
+                  setSelectedTask(task);
+                  setShowInfoTaskModal(true);
+                }}
+                primary={task.name}
+              />
+
+              <FormControl>
+                <InputLabel id="select_id">Статус</InputLabel>
+                <Select
+                  labelId="select_id"
+                  value={task.status || ''}
+                  label="Статус"
+                  onChange={({ target }) => {
+                    void taskStore.updateTask({
+                      ...task,
+                      status: target.value,
+                    });
+                  }}
+                >
+                  {tableStore.activeTable?.workflow.map((status) => (
+                    <MenuItem key={status} value={status}>
+                      {status}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
           </ListItem>
         ))}
       </List>

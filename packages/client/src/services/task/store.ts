@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from 'mobx';
 
 import { CreateTask, Task } from './types.ts';
 import { TaskService } from './task-service.ts';
+import { rootStore } from '../root-store.ts';
 
 class TaskStore {
   tasks: Task[] = [];
@@ -69,10 +70,10 @@ class TaskStore {
   }
 
   async deleteTask(id: string) {
-    const deletedTask = await TaskService.deleteTask(id);
+    await TaskService.deleteTask(id);
 
     runInAction(() => {
-      this.tasks = this.tasks.filter((task) => task.id !== deletedTask.id);
+      this.tasks = this.tasks.filter((task) => task.id !== id);
     });
   }
 

@@ -14,7 +14,12 @@ import { UuidValidationPipe } from '../../shared/pipes';
 
 import { JwtAuthGuard } from '../../auth/guards';
 
-import { AddUserDto, OutputUserDto, UpdateUserDto } from '../dtos';
+import {
+  AddUserDto,
+  CreateUserDto,
+  OutputUserDto,
+  UpdateUserDto,
+} from '../dtos';
 import { UserService } from '../services';
 
 @Controller('users')
@@ -25,9 +30,9 @@ export class UserController {
   @Post()
   async createUser(
     @ReqContext() ctx: RequestContext,
-    @Body() createUserDto: AddUserDto,
+    @Body() createUserDto: CreateUserDto,
   ): Promise<OutputUserDto> {
-    return await this.userService.addUserToCompany(ctx, createUserDto);
+    return await this.userService.createUser(ctx, createUserDto);
   }
 
   @Post('company')

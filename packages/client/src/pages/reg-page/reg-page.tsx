@@ -13,15 +13,27 @@ import {
 } from '@mui/material';
 import LockPersonOutlinedIcon from '@mui/icons-material/LockPersonOutlined';
 import React from 'react';
+import { useStores } from '@services';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@data';
 
 const RegPage = () => {
+  const { userStore } = useStores();
+  const navigate = useNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    userStore
+      .registerUser({
+        email: data.get('email') as string,
+        password: data.get('password') as string,
+        name: ((data.get('firstName') as string) +
+          ' ' +
+          data.get('lastName')) as string,
+        photo: '',
+      })
+      .then(() => navigate(ROUTES.SignIn));
   };
 
   return (
@@ -85,12 +97,6 @@ const RegPage = () => {
                 autoComplete="new-password"
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -103,7 +109,7 @@ const RegPage = () => {
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="#" variant="body2">
-                Already have an account? Sign in
+                Уже есть аккаунт? Войти
               </Link>
             </Grid>
           </Grid>

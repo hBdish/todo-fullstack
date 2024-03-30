@@ -1,4 +1,4 @@
-import { Box, Modal, TextField } from '@mui/material';
+import { Box, Modal, TextField, Typography } from '@mui/material';
 import { Task, useStores } from '@services';
 import { UserSelect } from '../user-select';
 import { observer } from 'mobx-react-lite';
@@ -21,6 +21,11 @@ const TaskInfoCard = observer((props: TaskInfoCard) => {
     void taskStore.updateTask({ ...task, name, description });
   };
 
+  useEffect(() => {
+    setName(task.name);
+    setDescription(task.description);
+  }, [task]);
+
   return (
     <Modal
       open={open}
@@ -32,12 +37,12 @@ const TaskInfoCard = observer((props: TaskInfoCard) => {
         sx={{
           position: 'absolute' as const,
           display: 'grid',
+          gap: '12px',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
           width: 680,
           bgcolor: 'background.paper',
-          border: '2px solid #000',
           boxShadow: 24,
           p: 4,
         }}
@@ -45,7 +50,7 @@ const TaskInfoCard = observer((props: TaskInfoCard) => {
         <TextField
           id="filled-basic"
           label="Имя задачи"
-          variant="filled"
+          variant="outlined"
           value={name}
           onChange={({ target }) => {
             setName(target.value);
@@ -56,7 +61,7 @@ const TaskInfoCard = observer((props: TaskInfoCard) => {
         <TextField
           id="filled-basic"
           label="Описание"
-          variant="filled"
+          variant="outlined"
           value={description}
           onChange={({ target }) => {
             setDescription(target.value);
@@ -64,9 +69,12 @@ const TaskInfoCard = observer((props: TaskInfoCard) => {
           onBlur={onBlurUpdate}
           multiline
           maxRows={8}
+          inputProps={{ maxLength: 248 }}
         />
-
-        <UserSelect activeUser={task.user} activeTask={task} />
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Typography>Исполнитель:</Typography>
+          <UserSelect activeUser={task.user} activeTask={task} />
+        </Box>
       </Box>
     </Modal>
   );
