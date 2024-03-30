@@ -7,5 +7,6 @@ user: admin
 password: root
 db_name: todo
 
-1. npm run:server
-2. npm run:web
+1. npm i
+2. npm run:server
+3. npm run:web
