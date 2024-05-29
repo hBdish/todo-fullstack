@@ -24,16 +24,14 @@ const TaskTableCell = observer(
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
     const renderTaskCard = (task: Task) => (
-      <>
-        <TaskCard
-          onClick={() => {
-            setSelectedTask(task);
-            setShowInfoTaskModal(true);
-          }}
-          task={task}
-          key={task.id}
-        />
-      </>
+      <TaskCard
+        onClick={() => {
+          setSelectedTask(task);
+          setShowInfoTaskModal(true);
+        }}
+        task={task}
+        key={task.id}
+      />
     );
 
     return (

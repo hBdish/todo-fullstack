@@ -3,6 +3,7 @@ import { Task, useStores } from '@services';
 import { UserSelect } from '../user-select';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
+import { DatePicker } from '@mui/x-date-pickers';
 
 interface TaskInfoCard {
   open: boolean;
@@ -71,6 +72,10 @@ const TaskInfoCard = observer((props: TaskInfoCard) => {
           maxRows={8}
           inputProps={{ maxLength: 248 }}
         />
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <DatePicker sx={{ width: 240 }} label={'Дата начала исполнения'} />
+          <DatePicker sx={{ width: 240 }} label={'Дата завершения'} />
+        </Box>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Typography>Исполнитель:</Typography>
           <UserSelect activeUser={task.user} activeTask={task} />

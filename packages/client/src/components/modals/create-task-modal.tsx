@@ -10,6 +10,7 @@ import {
 import { observer } from 'mobx-react-lite';
 import { Project, Table, useStores } from '@services';
 import { useEffect, useState } from 'react';
+import { DatePicker } from '@mui/x-date-pickers';
 
 interface CreateTaskModal {
   open: boolean;
@@ -60,6 +61,7 @@ const CreateTaskModal = observer((props: CreateTaskModal) => {
           bgcolor: 'background.paper',
           border: '2px solid #000',
           boxShadow: 24,
+          gap: 1,
           pt: 2,
           px: 4,
           pb: 3,
@@ -86,6 +88,11 @@ const CreateTaskModal = observer((props: CreateTaskModal) => {
           label="Описание задачи"
           variant="standard"
         />
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <DatePicker sx={{ width: 240 }} label={'Дата начала исполнения'} />
+          <DatePicker sx={{ width: 240 }} label={'Дата завершения'} />
+        </Box>
+
         <Select
           sx={{
             width: 200,

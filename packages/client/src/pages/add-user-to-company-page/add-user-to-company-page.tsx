@@ -61,7 +61,7 @@ const AddUserToCompanyPage = () => {
                 required
                 fullWidth
                 id="firstName"
-                label="First Name"
+                label="Имя"
                 autoFocus
               />
             </Grid>
@@ -70,7 +70,7 @@ const AddUserToCompanyPage = () => {
                 required
                 fullWidth
                 id="lastName"
-                label="Last Name"
+                label="Фамилия"
                 name="lastName"
                 autoComplete="family-name"
               />
@@ -80,7 +80,7 @@ const AddUserToCompanyPage = () => {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="email"
                 name="email"
                 autoComplete="email"
               />
@@ -90,7 +90,7 @@ const AddUserToCompanyPage = () => {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="пароль"
                 type="password"
                 id="password"
                 autoComplete="new-password"

@@ -50,4 +50,17 @@ export class TaskController {
   ) {
     return await this.taskService.deleteTask(taskId);
   }
+
+  @Post('close-sprint')
+  async closeSprint(@Body() tasks: TaskEntity[]): Promise<
+    {
+      name: string;
+      wait: number;
+      inWork: number;
+      done: number;
+      imposible: number;
+    }[]
+  > {
+    return await this.taskService.closeSprint(tasks);
+  }
 }

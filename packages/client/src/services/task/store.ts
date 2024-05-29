@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction } from 'mobx';
 
 import { CreateTask, Task } from './types.ts';
 import { TaskService } from './task-service.ts';
-import { rootStore } from '../root-store.ts';
 
 class TaskStore {
   tasks: Task[] = [];
@@ -39,6 +38,14 @@ class TaskStore {
       task: [],
     },
   };
+
+  sprintInfo: {
+    name: string;
+    wait: number;
+    inWork: number;
+    done: number;
+    imposible: number;
+  }[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -87,6 +94,16 @@ class TaskStore {
         return t;
       });
     });
+  }
+
+  async closeSprint(tasks: Task[]) {
+    const sprintInfo = await TaskService.closeSprint(tasks);
+
+    runInAction(() => {
+      this.sprintInfo = sprintInfo;
+    });
+
+    return sprintInfo;
   }
 }
 

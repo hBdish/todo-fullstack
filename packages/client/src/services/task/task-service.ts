@@ -14,4 +14,16 @@ export class TaskService {
   static deleteTask(id: string) {
     return apiClient.delete<Task>(`/tasks/${id}`);
   }
+
+  static closeSprint(tasks: Task[]) {
+    return apiClient.post<
+      {
+        name: string;
+        wait: number;
+        inWork: number;
+        done: number;
+        imposible: number;
+      }[]
+    >(`/tasks/close-sprint`, tasks);
+  }
 }

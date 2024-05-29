@@ -1,5 +1,4 @@
 import { Table as TableInterface, Task } from '@services';
-import { useDropCustom } from '@hooks';
 
 import { Table } from '../table';
 
@@ -8,8 +7,6 @@ import { TaskTableHeader } from './components';
 import styles from './task-table.module.scss';
 import { observer } from 'mobx-react-lite';
 import { TaskTableCell } from './components/task-table-cell';
-import React, { useState } from 'react';
-import { TaskInfoCard } from '../task-info-card';
 
 interface TaskTable {
   table: TableInterface;

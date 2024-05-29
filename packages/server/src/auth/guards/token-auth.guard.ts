@@ -5,10 +5,13 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 
+const SECRET_KEY = 'test';
+const SALT = 'test';
+
 @Injectable()
 export class TokenGuard implements CanActivate {
-  private readonly token: string = 'тест';
-  private readonly salt: string = 'salt'; // salt
+  private readonly token: string = SECRET_KEY;
+  private readonly salt: string = SALT;
 
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
@@ -23,8 +26,6 @@ export class TokenGuard implements CanActivate {
 
   private verifyToken(authorizationHeader: string): boolean {
     const token = authorizationHeader.split(' ')[1];
-
-    // Check token logic
     const saltedToken = this.salt + this.token;
     const isTokenValid = token === saltedToken;
 

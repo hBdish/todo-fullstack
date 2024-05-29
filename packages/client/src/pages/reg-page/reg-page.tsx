@@ -51,7 +51,7 @@ const RegPage = () => {
           <LockPersonOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Регистрация
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -62,7 +62,7 @@ const RegPage = () => {
                 required
                 fullWidth
                 id="firstName"
-                label="First Name"
+                label="Имя"
                 autoFocus
               />
             </Grid>
@@ -71,7 +71,7 @@ const RegPage = () => {
                 required
                 fullWidth
                 id="lastName"
-                label="Last Name"
+                label="Фамилия"
                 name="lastName"
                 autoComplete="family-name"
               />
@@ -81,7 +81,7 @@ const RegPage = () => {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Адрес электронной почты"
                 name="email"
                 autoComplete="email"
               />
@@ -91,7 +91,7 @@ const RegPage = () => {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="Пароль"
                 type="password"
                 id="password"
                 autoComplete="new-password"
@@ -104,7 +104,7 @@ const RegPage = () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign Up
+            Зарегистрироваться
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>

@@ -44,4 +44,87 @@ export class TaskService {
 
     return await this.taskRepository.removeTask(deletedTask);
   }
+
+  async closeSprint(tasks: TaskEntity[]): Promise<
+    {
+      name: string;
+      wait: number;
+      inWork: number;
+      done: number;
+      imposible: number;
+    }[]
+  > {
+    const completedTasks = tasks.filter((task) => task.status === 'Выполнены');
+    const impossibleTasks = tasks.filter(
+      (task) => task.status === 'Невозможно выполнить',
+    );
+
+    await Promise.all(
+      completedTasks.map(
+        async (tasks) =>
+          await this.taskRepository.removeTask(
+            plainToInstance(TaskEntity, tasks),
+          ),
+      ),
+    );
+
+    await Promise.all(
+      impossibleTasks.map(
+        async (tasks) =>
+          await this.taskRepository.removeTask(
+            plainToInstance(TaskEntity, tasks),
+          ),
+      ),
+    );
+
+    const res = new Map();
+
+    tasks.forEach((task) =>
+      res.set(task.user?.name || '', {
+        wait: 0,
+        inWork: 0,
+        done: 0,
+        imposible: 0,
+      }),
+    );
+
+    tasks.forEach((task) => {
+      const obj = res.get(task.user?.name || '');
+      console.log(task.status);
+
+      if (task.status === 'Не начаты') {
+        obj.wait += 1;
+      }
+
+      if (task.status === 'В работе') {
+        obj.inWork += 1;
+      }
+
+      if (task.status === 'Выполнены') {
+        obj.done += 1;
+      }
+
+      if (task.status === 'Невозможно выполнить') {
+        obj.imposible += 1;
+      }
+
+      console.log(obj);
+    });
+
+    const sprintInfo: {
+      name: string;
+      wait: number;
+      inWork: number;
+      done: number;
+      imposible: number;
+    }[] = [];
+
+    for (const name of res.keys()) {
+      const val = res.get(name);
+
+      sprintInfo.push({ name, ...val });
+    }
+
+    return sprintInfo;
+  }
 }

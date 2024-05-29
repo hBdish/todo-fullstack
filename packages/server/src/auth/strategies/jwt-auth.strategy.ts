@@ -5,6 +5,8 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { STRATEGY_JWT_AUTH } from '../constants';
 import { UserAccessTokenClaims } from '../dtos';
 
+const SECRET_KEY = 'test';
+
 @Injectable()
 export class JwtAuthStrategy extends PassportStrategy(
   Strategy,
@@ -13,7 +15,7 @@ export class JwtAuthStrategy extends PassportStrategy(
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: 'test',
+      secretOrKey: SECRET_KEY,
     });
   }
   async validate(payload: any): Promise<UserAccessTokenClaims> {

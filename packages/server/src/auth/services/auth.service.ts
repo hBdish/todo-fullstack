@@ -9,6 +9,8 @@ import { AddUserDto, CreateUserDto, OutputUserDto } from '../../user/dtos';
 
 import { AuthTokenOutput, UserAccessTokenClaims } from '../dtos';
 
+const SECRET_KEY = 'test';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -46,7 +48,6 @@ export class AuthService {
   }
 
   async refreshToken(ctx: RequestContext): Promise<AuthTokenOutput> {
-    console.log(ctx.user.id);
     const user = await this.userService.getUserById(ctx, ctx.user.id);
     if (!user) {
       throw new UnauthorizedException('Invalid user id');
@@ -67,12 +68,12 @@ export class AuthService {
 
     const authToken = {
       refreshToken: this.jwtService.sign(subject, {
-        secret: 'test',
+        secret: SECRET_KEY,
         expiresIn: 60000,
       }),
       accessToken: this.jwtService.sign(
         { ...payload, ...subject },
-        { expiresIn: 60000, secret: 'test' },
+        { expiresIn: 3600, secret: SECRET_KEY },
       ),
       email: user.email,
       id: user.id,

@@ -20,7 +20,7 @@
     "@packages/shared": "*",
     "axios": "^1.6.7",
     "date-fns": "^3.5.0",
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.11",
     "mobx": "^6.12.0",
     "mobx-react-lite": "^4.0.6",
     "rdndmb-html5-to-touch": "^8.0.3",
